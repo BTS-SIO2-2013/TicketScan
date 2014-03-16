@@ -1,5 +1,8 @@
 package esarc.bts.ticketscan.model.ticket;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 public class Ticket {
 	private String nom;
 	private int code;
@@ -24,5 +27,10 @@ public class Ticket {
 
 	public void setCode(int code) {
 		this.code = code;
+	}
+
+	public static Ticket loadJson(String json) throws JSONException {
+		JSONObject jsonT = new JSONObject(json);
+		return new Ticket(jsonT.getString("nom"),jsonT.getInt("code"));
 	}
 }
