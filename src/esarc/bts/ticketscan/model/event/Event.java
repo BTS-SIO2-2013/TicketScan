@@ -67,4 +67,17 @@ public class Event {
 		return event;
 		
 	}
+	
+	public String listTicketToJson(){
+		String sortie = "[";
+		String separateur = "";
+		for (final Ticket ticket: this.listTicket) {
+			sortie += separateur;
+			sortie += "{\"nom\":" + ticket.getNom() + ",";
+			sortie += "\"code\":" + ticket.getCode() + ",";
+			sortie += "\"valide\":" + ticket.getValide() + "}";
+			separateur = ",";
+		}
+		return sortie;
+	}
 }
