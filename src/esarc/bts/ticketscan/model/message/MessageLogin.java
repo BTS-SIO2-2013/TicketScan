@@ -21,13 +21,12 @@ public class MessageLogin {
 		this.message = message;
 	}
 	public MessageLogin(boolean autOk, String message) {
-		super();
 		this.autOk = autOk;
 		this.message = message;
 	}
 	public MessageLogin() {
-		this.autOk = true;
-		this.message = "";
+		this.autOk = false;
+		this.message = "Non instancier";
 	}
 	
 	public static MessageLogin fromJSON(String json) throws JSONException {
