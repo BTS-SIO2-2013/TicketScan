@@ -23,13 +23,14 @@ public class TicketScan extends Activity {
 	       
         ArrayList<Ticket> list = new ArrayList<Ticket>();
         try {
-			Ticket ticket1 = Ticket.loadJson("{\"nom\":\"Jean-claude\",\"code\":22}");
+			Ticket ticket1 = Ticket.loadJson("{\"nom\":\"Jean-claude\",\"code\":22 ,\"valide\":false}");
+			Ticket ticket2 = Ticket.loadJson("{\"nom\":\"Jean-Miche\",\"code\":15 ,\"valide\":true}");
 			list.add(ticket1);
         } catch (JSONException e) {
 			Log.e("JSONE", e.getMessage());
 		}
-        list.add(new Ticket("Spectacle",20));
-        list.add(new Ticket("Magie", 23));
+        list.add(new Ticket("Spectacle",20, false));
+        list.add(new Ticket("Magie", 23, true));
         ListView listVue = (ListView) findViewById(R.id.TicketListView);
         TicketAdapter adapter = new TicketAdapter(this,list);
         listVue.setAdapter(adapter);

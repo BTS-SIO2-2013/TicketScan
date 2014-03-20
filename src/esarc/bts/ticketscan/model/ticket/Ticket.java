@@ -10,11 +10,13 @@ import org.json.JSONObject;
 public class Ticket {
 	private String nom;
 	private int code;
+	private Boolean valide;
 
-	public Ticket(String nom, int code) {
+	public Ticket(String nom, int code, Boolean valide) {
 		super();
 		this.nom = nom;
 		this.setCode(code);
+		this.setValide(valide);
 	}
 
 	public String getNom() {
@@ -33,9 +35,17 @@ public class Ticket {
 		this.code = code;
 	}
 
+	public Boolean getValide() {
+		return valide;
+	}
+
+	public void setValide(Boolean valide) {
+		this.valide = valide;
+	}
+
 	public static Ticket loadJson(String json) throws JSONException {
 		JSONObject jsonT = new JSONObject(json);
-		return new Ticket(jsonT.getString("nom"),jsonT.getInt("code"));
+		return new Ticket(jsonT.getString("nom"),jsonT.getInt("code"), jsonT.getBoolean("valide"));
 	}
 
 	public static List<Ticket> ticketListFromJSON(String json) throws JSONException {
