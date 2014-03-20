@@ -75,6 +75,16 @@ public class user {
 		this.mdp = "";
 	}
 
+	public user(String login, String mdp) {
+		this.id = -1;
+		this.nom = "";
+		this.prenom = "";
+		this.mail = "";
+		this.telephone = "";
+		this.login = login;
+		this.mdp = mdp;
+	}
+
 	public user(int id, String nom, String prenom, String mail,
 			String telephone, String login, String mdp) {
 		this.id = id;
