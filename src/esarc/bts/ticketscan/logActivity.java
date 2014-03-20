@@ -3,9 +3,11 @@ package esarc.bts.ticketscan;
 import org.json.JSONException;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 import esarc.bts.ticketscan.model.message.MessageLogin;
 import esarc.bts.ticketscan.model.user.user;
@@ -35,7 +37,14 @@ public class logActivity extends Activity {
 
 	public void verifier() {
 		MessageLogin messageLogin = new MessageLogin();
+		ProgressBar progressBar = (ProgressBar) this
+				.findViewById(R.id.progressBarLog);
 
+		// On affiche la progress bar
+		progressBar.setVisibility(View.VISIBLE);
+
+		// Variable Json permettant de simuler une authentification correcte sur
+		// le serveur
 		String json = "{\"autOk\":\"" + true + "\"," + "\"message\":\"" + null
 				+ "\"}";
 
@@ -49,6 +58,14 @@ public class logActivity extends Activity {
 		if (messageLogin.isAutOk()) {
 			Toast.makeText(this.getApplicationContext(), "Authentification OK",
 					Toast.LENGTH_SHORT).show();
+
+			// On masque la progress bar
+			progressBar.setVisibility(View.INVISIBLE);
+
+			// On affiche le layout suivant
+			Intent intent = new Intent(this, EventActivity.class);
+			this.startActivity(intent);
+
 		} else {
 			Toast.makeText(this.getApplicationContext(), "Authentification KO",
 					Toast.LENGTH_SHORT).show();

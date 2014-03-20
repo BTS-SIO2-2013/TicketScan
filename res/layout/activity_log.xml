@@ -30,16 +30,11 @@
         android:layout_above="@+id/txtMDP"
         android:layout_centerHorizontal="true"
         android:ems="10"
-        android:hint="Login" />
+        android:hint="Login" >
 
-    <ImageView
-        android:id="@+id/imageView1"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_above="@+id/txtNom"
-        android:layout_centerHorizontal="true"
-        android:layout_marginBottom="61dp"
-        android:src="@drawable/ic_launcher" />
+        <requestFocus />
+
+    </EditText>
 
     <ProgressBar
         android:id="@+id/progressBarLog"
@@ -48,6 +43,16 @@
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginBottom="28dp" />
+        android:layout_marginBottom="28dp" 
+        android:visibility="invisible"/>
+
+    <ImageView
+        android:id="@+id/imageView1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/txtNom"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="55dp"
+        android:src="@drawable/ic_launcher" />
 
 </RelativeLayout>
