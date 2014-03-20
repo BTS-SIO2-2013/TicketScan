@@ -41,4 +41,15 @@
         android:text="Small Text"
         android:textAppearance="?android:attr/textAppearanceSmall" />
 
+    <TextView
+        android:id="@+id/textValide"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/texteNom"
+        android:layout_alignBottom="@+id/texteNom"
+        android:layout_marginLeft="29dp"
+        android:layout_toRightOf="@+id/texteNom"
+        android:text="Small Text"
+        android:textAppearance="?android:attr/textAppearanceSmall" />
+
 </RelativeLayout>

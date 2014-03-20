@@ -32,6 +32,7 @@ public class TicketAdapter extends ArrayAdapter<Ticket> {
 		
 		TextView libele = (TextView) ligne.findViewById(R.id.texteNom);
 		TextView code = (TextView) ligne.findViewById(R.id.textBillet);
+		TextView valide = (TextView) ligne.findViewById(R.id.textValide);
 		
 		Ticket ticket = getItem(position);
 		
@@ -40,6 +41,15 @@ public class TicketAdapter extends ArrayAdapter<Ticket> {
 		}
 		if (code != null && ticket !=null ){
 			code.setText(String.valueOf(ticket.getCode()));
+		}
+		if (valide != null && ticket !=null ){
+			valide.setText(String.valueOf(ticket.getValide()));
+		}
+		if (ticket !=null && ticket.getValide()){
+			ligne.setBackgroundColor(android.graphics.Color.BLUE);
+		}
+		else{
+			ligne.setBackgroundColor(android.graphics.Color.TRANSPARENT);
 		}
 		
 		return ligne;

@@ -27,14 +27,14 @@ public class TicketScan extends ListActivity {
         ArrayList<Ticket> list = new ArrayList<Ticket>();
         try {
 			Ticket ticket1 = Ticket.loadJson("{\"nom\":\"Jean-claude\",\"code\":22 ,\"valide\":false}");
-			Ticket ticket2 = Ticket.loadJson("{\"nom\":\"Jean-Miche\",\"code\":15 ,\"valide\":true}");
+			Ticket ticket2 = Ticket.loadJson("{\"nom\":\"Jean-Miche\",\"code\":15 ,\"valide\":false}");
 			list.add(ticket1);
 			list.add(ticket2);
         } catch (JSONException e) {
 			Log.e("JSONE", e.getMessage());
 		}
-        list.add(new Ticket("Spectacle",20, false));
-        list.add(new Ticket("Magie", 23, true));
+        list.add(new Ticket("Spectacle",20, true));
+        list.add(new Ticket("Magie", 23, false));
         TicketAdapter adapter = new TicketAdapter(this,list);
         setListAdapter(adapter);
 	}
