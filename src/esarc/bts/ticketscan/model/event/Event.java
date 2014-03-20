@@ -78,6 +78,7 @@ public class Event {
 			sortie += "\"valide\":" + ticket.getValide() + "}";
 			separateur = ",";
 		}
+		sortie += "]";
 		return sortie;
 	}
 }

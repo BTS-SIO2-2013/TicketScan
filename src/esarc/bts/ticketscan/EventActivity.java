@@ -48,10 +48,11 @@ public class EventActivity extends ListActivity {
 	protected void onListItemClick(ListView l, View v, int position, long id) {
 		super.onListItemClick(l, v, position, id);
 		Event event = (Event) l.getItemAtPosition(position);
-		//Toast.makeText(this, event.listTicketToJson(), Toast.LENGTH_LONG).show();
+		
 		
 		Intent intent = new Intent(this, TicketScan.class);
 		intent.putExtra("listTicket", event.listTicketToJson());
+		//Toast.makeText(this, intent.getStringExtra("listTicket"), Toast.LENGTH_LONG).show();
 		startActivity(intent);
 	}
 	
