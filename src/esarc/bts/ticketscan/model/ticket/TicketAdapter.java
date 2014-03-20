@@ -41,6 +41,12 @@ public class TicketAdapter extends ArrayAdapter<Ticket> {
 		if (code != null && ticket !=null ){
 			code.setText(String.valueOf(ticket.getCode()));
 		}
+		if (ticket !=null && ticket.getValide()){
+			ligne.setBackgroundColor(android.graphics.Color.BLUE);
+		}
+		else{
+			ligne.setBackgroundColor(android.graphics.Color.TRANSPARENT);
+		}
 		
 		return ligne;
 	}
