@@ -1,5 +1,7 @@
 package esarc.bts.ticketscan;
 
+import esarc.bts.ticketscan.model.message.MessageLogin;
+import esarc.bts.ticketscan.model.user.user;
 import android.app.Activity;
 import android.os.Bundle;
 import android.view.View;
@@ -22,6 +24,24 @@ public class logActivity extends Activity {
 		Toast.makeText(this.getApplicationContext(),
 				"ID: " + txtNom.getText() + "\nMDP: " + txtMDP.getText(),
 				Toast.LENGTH_SHORT).show();
-
+		//Envoie des données (JSON) au serveur
+		envoyerDonnee(txtNom.getText().toString(), txtMDP.getText().toString());
+		//Verification des données reçus
+		verifier();
+	}
+	
+	public void verifier() {
+		MessageLogin messagelogin = new MessageLogin();
+		
+		String json;
+		
+		
+	}
+	public void envoyerDonnee(String login, String mdp) {
+		
+		user user = new user(login, mdp);
+		user.toJSONLog();
+		// todo.envoyez le JSON à la BDD
+		
 	}
 }
