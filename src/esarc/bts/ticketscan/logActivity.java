@@ -9,6 +9,7 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.Toast;
+import esarc.bts.ticketscan.model.hash.Hash;
 import esarc.bts.ticketscan.model.message.MessageLogin;
 import esarc.bts.ticketscan.model.user.user;
 
@@ -25,14 +26,22 @@ public class logActivity extends Activity {
 		EditText txtNom = (EditText) this.findViewById(R.id.txtNom);
 		EditText txtMDP = (EditText) this.findViewById(R.id.txtMDP);
 
-		Toast.makeText(this.getApplicationContext(),
-				"ID: " + txtNom.getText() + "\nMDP: " + txtMDP.getText(),
+		Toast.makeText(
+				this.getApplicationContext(),
+				"ID: " + txtNom.getText() + "\nMDP: "
+						+ Hash.toSHA(txtMDP.getText().toString()),
 				Toast.LENGTH_SHORT).show();
-		// Envoie des données (JSON) au serveur
+
+		// Envoie des donnï¿½es (JSON) au serveur
 		this.envoyerDonnee(txtNom.getText().toString(), txtMDP.getText()
 				.toString());
-		// Verification des données reçus
+		// Verification des donnï¿½es reï¿½us
 		this.verifier();
+	}
+
+	public void onClickTxtMDPOublie(View v) {
+		Toast.makeText(this.getApplicationContext(), "Coucou ",
+				Toast.LENGTH_SHORT).show();
 	}
 
 	public void verifier() {
@@ -75,9 +84,9 @@ public class logActivity extends Activity {
 
 	public void envoyerDonnee(String login, String mdp) {
 
-		user user = new user(login, mdp);
+		user user = new user(login, Hash.toSHA(mdp));
 		user.toJSONLog();
-		// todo.envoyez le JSON à la BDD
+		// todo.envoyez le JSON ï¿½ la BDD
 
 	}
 }

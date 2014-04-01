@@ -3,16 +3,6 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent" >
 
-    <Button
-        android:id="@+id/btnLogin"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginBottom="113dp"
-        android:text="Connexion"
-        android:onClick="onClick" />
-
     <EditText
         android:id="@+id/txtMDP"
         android:layout_width="wrap_content"
@@ -54,5 +44,26 @@
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="55dp"
         android:src="@drawable/ic_launcher" />
+
+    <Button
+        android:id="@+id/btnLogin"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/txtMDP"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="16dp"
+        android:onClick="onClick"
+        android:text="Connexion" />
+
+    <TextView
+        android:id="@+id/txtMDPOublie"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/btnLogin"
+        android:layout_centerHorizontal="true"
+        android:text="Mot de passe oublié"
+        android:textAppearance="?android:attr/textAppearanceMedium" 
+        android:onClick="onClickTxtMDPOublie"
+        android:visibility="invisible"/>
 
 </RelativeLayout>
