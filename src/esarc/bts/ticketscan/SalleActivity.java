@@ -5,8 +5,6 @@ import java.util.ArrayList;
 
 import org.json.JSONException;
 
-import esarc.bts.ticketscan.model.event.Event;
-import esarc.bts.ticketscan.model.event.EventAdapter;
 import esarc.bts.ticketscan.model.salle.Salle;
 import esarc.bts.ticketscan.model.salle.SalleAdapter;
 

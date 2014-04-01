@@ -16,6 +16,12 @@
         <activity
             android:name="esarc.bts.ticketscan.TicketScan"
             android:label="@string/app_name" >
+            
+        </activity>
+        <activity android:name="EventActivity">
+            
+        </activity>
+        <activity android:name="SalleActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

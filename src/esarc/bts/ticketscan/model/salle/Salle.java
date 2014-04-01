@@ -8,7 +8,6 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import esarc.bts.ticketscan.model.event.Event;
-import esarc.bts.ticketscan.model.ticket.Ticket;
 
 public class Salle {
 	private String nom;
