@@ -72,7 +72,7 @@ public class logActivity extends Activity {
 			progressBar.setVisibility(View.INVISIBLE);
 
 			// On affiche le layout suivant
-			Intent intent = new Intent(this, EventActivity.class);
+			Intent intent = new Intent(this, SalleActivity.class);
 			this.startActivity(intent);
 
 		} else {
