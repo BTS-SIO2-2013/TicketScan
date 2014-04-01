@@ -70,9 +70,48 @@ public class logActivity extends Activity {
 
 			// On masque la progress bar
 			progressBar.setVisibility(View.INVISIBLE);
+			// Initialisation en dur pour l'instant, pas de liaison BDD
+			String listJSon = "[" +
+								"{\"nom\":\"Bacalan\",\"adresse\":\"16 rue de l'eglise\"," +
+									"\"listeDesEvenements\": " +
+										"[" +
+											"{\"nom\":\"Concert\",\"date\":\"20/03/2014\"," +
+												"\"listeDesTickets\": " +
+													"[{\"nom\":\"Jean-claude\",\"code\":22 ,\"valide\":false}," +
+													"{\"nom\":\"Jean-Michel\",\"code\":15 ,\"valide\":true}]}," +
+											"{\"nom\":\"Magie\",\"date\":\"21/03/2014\"," +
+												"\"listeDesTickets\": " +
+													"[" +
+														"{\"nom\":\"Tristan\",\"code\":1 ,\"valide\":false}," +
+														"{\"nom\":\"Adam\",\"code\":20 ,\"valide\":true}" +
+													"]" +
+											"}" +
+										"]" +
+									"}," +
+									"{\"nom\":\"Meriadec\",\"adresse\":\"1 rue de la Mairie\"," +
+										"\"listeDesEvenements\":" +
+											"[" +
+												"{\"nom\":\"Danse\",\"date\":\"27/03/2014\"," +
+													"\"listeDesTickets\": " +
+													"[" +
+														"{\"nom\":\"Alain\",\"code\":10 ,\"valide\":false}," +
+														"{\"nom\":\"Robert\",\"code\":10 ,\"valide\":true}" +
+													"]" +
+												"}," +
+												"{\"nom\":\"Theatre\",\"date\":\"01/04/2014\"," +
+													"\"listeDesTickets\":" +
+													"[" +
+														"{\"nom\":\"Alexis\",\"code\":1 ,\"valide\":false}," +
+														"{\"nom\":\"Xavier\",\"code\":20 ,\"valide\":true}" +
+													"]" +
+												"}" +
+											"]" +
+										"}" +
+									"]";
 
 			// On affiche le layout suivant
-			Intent intent = new Intent(this, EventActivity.class);
+			Intent intent = new Intent(this, SalleActivity.class);
+			intent.putExtra("listSalle", listJSon);
 			this.startActivity(intent);
 
 		} else {

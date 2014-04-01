@@ -2,8 +2,10 @@ package esarc.bts.ticketscan.model.salle;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.List;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -80,5 +82,19 @@ public class Salle {
 		}
 		sortie += "]";
 		return sortie;
+	}
+
+	public static List<Salle> salleListFromJSON(String json) throws JSONException, ParseException {
+		List<Salle> list = new ArrayList<Salle>();
+		
+		JSONArray jsonArray = new JSONArray(json);
+		
+		for (int i = 0; i < jsonArray.length(); i++) {
+			JSONObject eventJSON = jsonArray.getJSONObject(i);
+			Salle salle = Salle.loadJson(eventJSON.toString());
+			list.add(salle);
+		}
+		
+		return list;
 	}
 }
