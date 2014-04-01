@@ -7,6 +7,7 @@ import org.w3c.dom.ls.LSInput;
 
 import esarc.bts.ticketscan.model.event.Event;
 import esarc.bts.ticketscan.model.event.EventAdapter;
+import esarc.bts.ticketscan.model.ticket.Ticket;
 import android.app.Activity;
 import android.app.ListActivity;
 import android.content.Intent;
@@ -24,21 +25,18 @@ public class EventActivity extends ListActivity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_event_scan);
 		
-		ArrayList<Event> list = new ArrayList<Event>();
-        try {
-			Event event1 = Event.loadJson("{\"nom\":\"Concert\",\"date\":\"20/03/2014\"," +
-					"\"listeDesTickets\": [{\"nom\":\"Jean-claude\",\"code\":22 ,\"valide\":false}," +
-					"{\"nom\":\"Jean-Miche\",\"code\":15 ,\"valide\":true}]}");
-			Event event2 = Event.loadJson("{\"nom\":\"Magie\",\"date\":\"21/03/2014\"," +
-					"\"listeDesTickets\": [{\"nom\":\"Tristan\",\"code\":1 ,\"valide\":false}," +
-					"{\"nom\":\"Adam\",\"code\":20 ,\"valide\":true}]}");
-			list.add(event1);
-			list.add(event2);
-        } catch (JSONException e) {
-			Log.e("JSONE", e.getMessage());
-		} catch (ParseException e) {
-			Log.e("PARSE", e.getMessage());
-		}
+		//Récupération de la liste des tickets de l'intent
+				Intent intent = getIntent();
+				ArrayList<Event> list = new ArrayList<Event>();
+				if (intent != null){
+					try {
+						list = (ArrayList<Event>) Event.eventListFromJSON(intent.getStringExtra("listEvent"));
+					} catch (JSONException e) {
+						Log.e("JSONE", e.getMessage());
+					} catch (ParseException e) {
+						Log.e("Parse", e.getMessage());
+					}
+				}
         
         EventAdapter adapter = new EventAdapter(this,list);
         setListAdapter(adapter);

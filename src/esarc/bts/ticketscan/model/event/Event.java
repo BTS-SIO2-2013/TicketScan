@@ -3,9 +3,11 @@ package esarc.bts.ticketscan.model.event;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -80,5 +82,19 @@ public class Event {
 		}
 		sortie += "]";
 		return sortie;
+	}
+	public static List<Event> eventListFromJSON(String json) throws JSONException, ParseException {
+		
+		List<Event> list = new ArrayList<Event>();
+		
+		JSONArray jsonArray = new JSONArray(json);
+		
+		for (int i = 0; i < jsonArray.length(); i++) {
+			JSONObject eventJSON = jsonArray.getJSONObject(i);
+			Event event = Event.loadJson(eventJSON.toString());
+			list.add(event);
+		}
+		
+		return list;
 	}
 }
