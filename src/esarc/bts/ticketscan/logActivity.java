@@ -72,7 +72,7 @@ public class logActivity extends Activity {
 			progressBar.setVisibility(View.INVISIBLE);
 			// Initialisation en dur pour l'instant, pas de liaison BDD
 			String listJSon = "[" +
-								"{\"nom\":\"Bacalan\",\"adresse\":\"16 rue de l'eglise\"," +
+								"{\"nom\":\"Bacalan\"," +
 									"\"listeDesEvenements\": " +
 										"[" +
 											"{\"nom\":\"Concert\",\"date\":\"20/03/2014\"," +
@@ -88,7 +88,7 @@ public class logActivity extends Activity {
 											"}" +
 										"]" +
 									"}," +
-									"{\"nom\":\"Meriadec\",\"adresse\":\"1 rue de la Mairie\"," +
+									"{\"nom\":\"Meriadec\"," +
 										"\"listeDesEvenements\":" +
 											"[" +
 												"{\"nom\":\"Danse\",\"date\":\"27/03/2014\"," +
