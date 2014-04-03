@@ -22,14 +22,16 @@ public class logActivity extends Activity {
 		this.setContentView(R.layout.activity_log);
 	}
 
+	// Se produit lorsqu'on clique sur le bouton de connexion
 	public void onClick(View v) {
 		EditText txtNom = (EditText) this.findViewById(R.id.txtNom);
 		EditText txtMDP = (EditText) this.findViewById(R.id.txtMDP);
 
-		// Envoie des donn�es (JSON) au serveur
+		// Envoie des donnees (JSON) au serveur
 		this.envoyerDonneeConnexion(txtNom.getText().toString(), txtMDP
 				.getText().toString());
-		// Verification des donn�es re�us
+
+		// Verification des donnees recus
 		this.verifier();
 	}
 
@@ -54,7 +56,6 @@ public class logActivity extends Activity {
 		try {
 			messageLogin = MessageLogin.fromJSON(json);
 		} catch (JSONException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 
@@ -67,7 +68,7 @@ public class logActivity extends Activity {
 
 			// Initialisation en dur pour l'instant, pas de liaison BDD
 			String listJSon = "["
-					+ "{\"nom\":\"Bacalan\",\"adresse\":\"16 rue de l'eglise\","
+					+ "{\"nom\":\"Bacalan\","
 					+ "\"listeDesEvenements\": "
 					+ "["
 					+ "{\"nom\":\"Concert\",\"date\":\"20/03/2014\","
@@ -75,15 +76,10 @@ public class logActivity extends Activity {
 					+ "[{\"nom\":\"Jean-claude\",\"code\":22 ,\"valide\":false},"
 					+ "{\"nom\":\"Jean-Michel\",\"code\":15 ,\"valide\":true}]},"
 					+ "{\"nom\":\"Magie\",\"date\":\"21/03/2014\","
-					+ "\"listeDesTickets\": "
-					+ "["
+					+ "\"listeDesTickets\": " + "["
 					+ "{\"nom\":\"Tristan\",\"code\":1 ,\"valide\":false},"
-					+ "{\"nom\":\"Adam\",\"code\":20 ,\"valide\":true}"
-					+ "]"
-					+ "}"
-					+ "]"
-					+ "},"
-					+ "{\"nom\":\"Meriadec\",\"adresse\":\"1 rue de la Mairie\","
+					+ "{\"nom\":\"Adam\",\"code\":20 ,\"valide\":true}" + "]"
+					+ "}" + "]" + "}," + "{\"nom\":\"Meriadec\","
 					+ "\"listeDesEvenements\":" + "["
 					+ "{\"nom\":\"Danse\",\"date\":\"27/03/2014\","
 					+ "\"listeDesTickets\": " + "["
@@ -95,7 +91,7 @@ public class logActivity extends Activity {
 					+ "{\"nom\":\"Xavier\",\"code\":20 ,\"valide\":true}" + "]"
 					+ "}" + "]" + "}" + "]";
 
-			// On initialise le layout suivant
+			// On affiche le layout suivant
 			Intent intent = new Intent(this, SalleActivity.class);
 			// On envoie les données au layout
 			intent.putExtra("listSalle", listJSon);
@@ -119,7 +115,7 @@ public class logActivity extends Activity {
 
 		user user = new user(login, Hash.toSHA(mdp));
 		user.toJSONLog();
-		// TODO envoyez le JSON � la BDD
+		// TODO envoyez le JSON a la BDD
 
 	}
 }

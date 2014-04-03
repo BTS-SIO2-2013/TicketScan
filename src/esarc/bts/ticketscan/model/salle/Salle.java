@@ -13,7 +13,6 @@ import esarc.bts.ticketscan.model.event.Event;
 
 public class Salle {
 	private String nom;
-	private String adresse;
 	private List<Event> listeEvent;
 	
 	public Salle() {
@@ -26,14 +25,6 @@ public class Salle {
 
 	public void setNom(String nom) {
 		this.nom = nom;
-	}
-
-	public String getAdresse() {
-		return adresse;
-	}
-
-	public void setAdresse(String adresse) {
-		this.adresse = adresse;
 	}
 
 	public List<Event> getListeEvent() {
@@ -58,7 +49,6 @@ public class Salle {
 		Salle salle = new Salle();
 		
 		salle.setNom(jsonT.getString("nom"));
-		salle.setAdresse(jsonT.getString("adresse"));
 		salle.setListeEvent(Event.eventListFromJSON(jsonT.getString("listeDesEvenements")));
 		
 		return salle;
