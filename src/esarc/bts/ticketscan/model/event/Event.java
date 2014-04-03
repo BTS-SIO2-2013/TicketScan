@@ -32,7 +32,7 @@ public class Event {
 		else this.libelle = null;
 	}
 	
-	public Date getDateEvent() {
+	public DateEvent getDateEvent() {
 		return dateEvent;
 	}
 	public void setDateEvent(DateEvent dateEvent) {
@@ -61,7 +61,7 @@ public class Event {
 		JSONObject jsonT = new JSONObject(json);
 		Event event = new Event();
 		
-		event.setLibelle(jsonT.getString("nom"));
+		event.setLibelle(jsonT.getString("libelle"));
 		event.setDateEvent(DateEvent.stringToDate(jsonT.getString("date")));
 		event.setListTicket(Ticket.ticketListFromJSON(jsonT.getString("listeDesTickets")));
 		

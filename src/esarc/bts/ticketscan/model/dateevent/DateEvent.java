@@ -4,18 +4,29 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-public class DateEvent extends Date {
+public class DateEvent {
+	private static SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+	private Date date;
+	
+	
+	public Date getDate() {
+		return date;
+	}
 
+	public void setDate(Date date) {
+		this.date = date;
+	}
+
+	
 	public static DateEvent stringToDate(String json) throws ParseException {
 		DateEvent dateEvent = new DateEvent();
-		SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
-		dateEvent = (DateEvent) sdf.parse(json);
+		dateEvent.setDate(sdf.parse(json));
+		
 		return dateEvent;
 	}
 	
 	public String toString() {
-		SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
-		return sdf.format(this);
+		return sdf.format(this.date);
 		
 	}
 	
