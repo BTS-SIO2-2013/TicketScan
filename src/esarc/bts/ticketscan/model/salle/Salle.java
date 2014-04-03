@@ -60,7 +60,7 @@ public class Salle {
 		String separateur = "";
 		for (final Event event: this.listeEvent) {
 			sortie += separateur;
-			sortie += "{\"nom\":" + event.getLibelle() + ",";
+			sortie += "{\"libelle\":" + event.getLibelle() + ",";
 			
 			SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
 			String dateStr = "";
