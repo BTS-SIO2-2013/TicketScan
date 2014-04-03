@@ -26,15 +26,9 @@ public class logActivity extends Activity {
 		EditText txtNom = (EditText) this.findViewById(R.id.txtNom);
 		EditText txtMDP = (EditText) this.findViewById(R.id.txtMDP);
 
-		Toast.makeText(
-				this.getApplicationContext(),
-				"ID: " + txtNom.getText() + "\nMDP: "
-						+ Hash.toSHA(txtMDP.getText().toString()),
-				Toast.LENGTH_SHORT).show();
-
 		// Envoie des donn�es (JSON) au serveur
-		this.envoyerDonnee(txtNom.getText().toString(), txtMDP.getText()
-				.toString());
+		this.envoyerDonneeConnexion(txtNom.getText().toString(), txtMDP
+				.getText().toString());
 		// Verification des donn�es re�us
 		this.verifier();
 	}
@@ -65,67 +59,67 @@ public class logActivity extends Activity {
 		}
 
 		if (messageLogin.isAutOk()) {
-			Toast.makeText(this.getApplicationContext(), "Authentification OK",
-					Toast.LENGTH_SHORT).show();
+			// Debug
+			System.out.println("Authentification OK");
 
 			// On masque la progress bar
 			progressBar.setVisibility(View.INVISIBLE);
-			// Initialisation en dur pour l'instant, pas de liaison BDD
-			String listJSon = "[" +
-								"{\"nom\":\"Bacalan\",\"adresse\":\"16 rue de l'eglise\"," +
-									"\"listeDesEvenements\": " +
-										"[" +
-											"{\"nom\":\"Concert\",\"date\":\"20/03/2014\"," +
-												"\"listeDesTickets\": " +
-													"[{\"nom\":\"Jean-claude\",\"code\":22 ,\"valide\":false}," +
-													"{\"nom\":\"Jean-Michel\",\"code\":15 ,\"valide\":true}]}," +
-											"{\"nom\":\"Magie\",\"date\":\"21/03/2014\"," +
-												"\"listeDesTickets\": " +
-													"[" +
-														"{\"nom\":\"Tristan\",\"code\":1 ,\"valide\":false}," +
-														"{\"nom\":\"Adam\",\"code\":20 ,\"valide\":true}" +
-													"]" +
-											"}" +
-										"]" +
-									"}," +
-									"{\"nom\":\"Meriadec\",\"adresse\":\"1 rue de la Mairie\"," +
-										"\"listeDesEvenements\":" +
-											"[" +
-												"{\"nom\":\"Danse\",\"date\":\"27/03/2014\"," +
-													"\"listeDesTickets\": " +
-													"[" +
-														"{\"nom\":\"Alain\",\"code\":10 ,\"valide\":false}," +
-														"{\"nom\":\"Robert\",\"code\":10 ,\"valide\":true}" +
-													"]" +
-												"}," +
-												"{\"nom\":\"Theatre\",\"date\":\"01/04/2014\"," +
-													"\"listeDesTickets\":" +
-													"[" +
-														"{\"nom\":\"Alexis\",\"code\":1 ,\"valide\":false}," +
-														"{\"nom\":\"Xavier\",\"code\":20 ,\"valide\":true}" +
-													"]" +
-												"}" +
-											"]" +
-										"}" +
-									"]";
 
-			// On affiche le layout suivant
+			// Initialisation en dur pour l'instant, pas de liaison BDD
+			String listJSon = "["
+					+ "{\"nom\":\"Bacalan\",\"adresse\":\"16 rue de l'eglise\","
+					+ "\"listeDesEvenements\": "
+					+ "["
+					+ "{\"nom\":\"Concert\",\"date\":\"20/03/2014\","
+					+ "\"listeDesTickets\": "
+					+ "[{\"nom\":\"Jean-claude\",\"code\":22 ,\"valide\":false},"
+					+ "{\"nom\":\"Jean-Michel\",\"code\":15 ,\"valide\":true}]},"
+					+ "{\"nom\":\"Magie\",\"date\":\"21/03/2014\","
+					+ "\"listeDesTickets\": "
+					+ "["
+					+ "{\"nom\":\"Tristan\",\"code\":1 ,\"valide\":false},"
+					+ "{\"nom\":\"Adam\",\"code\":20 ,\"valide\":true}"
+					+ "]"
+					+ "}"
+					+ "]"
+					+ "},"
+					+ "{\"nom\":\"Meriadec\",\"adresse\":\"1 rue de la Mairie\","
+					+ "\"listeDesEvenements\":" + "["
+					+ "{\"nom\":\"Danse\",\"date\":\"27/03/2014\","
+					+ "\"listeDesTickets\": " + "["
+					+ "{\"nom\":\"Alain\",\"code\":10 ,\"valide\":false},"
+					+ "{\"nom\":\"Robert\",\"code\":10 ,\"valide\":true}" + "]"
+					+ "}," + "{\"nom\":\"Theatre\",\"date\":\"01/04/2014\","
+					+ "\"listeDesTickets\":" + "["
+					+ "{\"nom\":\"Alexis\",\"code\":1 ,\"valide\":false},"
+					+ "{\"nom\":\"Xavier\",\"code\":20 ,\"valide\":true}" + "]"
+					+ "}" + "]" + "}" + "]";
+
+			// On initialise le layout suivant
 			Intent intent = new Intent(this, SalleActivity.class);
+			// On envoie les données au layout
 			intent.putExtra("listSalle", listJSon);
+			// On "affiche"
 			this.startActivity(intent);
 
 		} else {
-			Toast.makeText(this.getApplicationContext(), "Authentification KO",
-					Toast.LENGTH_SHORT).show();
+			// Debug
+			System.out.println("Authentification KO");
+
+			// Si l'authentification n'est pas correct on affiche un toast avec
+			// le message d'erreur associé
+			Toast.makeText(this.getApplicationContext(),
+					messageLogin.getMessage().toString(), Toast.LENGTH_SHORT)
+					.show();
 		}
 
 	}
 
-	public void envoyerDonnee(String login, String mdp) {
+	public void envoyerDonneeConnexion(String login, String mdp) {
 
 		user user = new user(login, Hash.toSHA(mdp));
 		user.toJSONLog();
-		// todo.envoyez le JSON � la BDD
+		// TODO envoyez le JSON � la BDD
 
 	}
 }
