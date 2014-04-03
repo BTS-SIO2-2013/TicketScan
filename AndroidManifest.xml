@@ -19,13 +19,13 @@
             
         </activity>
 
-        <activity android:name="EventActivity"></activity>
-        <activity android:name="logActivity"><intent-filter>
+        <activity android:name="esarc.bts.ticketscan.EventActivity"></activity>
+        <activity android:name="esarc.bts.ticketscan.logActivity"><intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter></activity>
-        <activity android:name="SalleActivity"></activity>
+        <activity android:name="esarc.bts.ticketscan.SalleActivity"></activity>
     </application>
 
 </manifest>
