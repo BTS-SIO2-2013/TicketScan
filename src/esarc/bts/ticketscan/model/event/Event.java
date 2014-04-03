@@ -11,12 +11,13 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import esarc.bts.ticketscan.model.client.Client;
+import esarc.bts.ticketscan.model.dateevent.DateEvent;
 import esarc.bts.ticketscan.model.ticket.Ticket;
 
 public class Event {
 	
 	private String libelle;
-	private Date dateEvent;
+	private DateEvent dateEvent;
 	private List<Ticket> listTicket;
 	
 	public Event(){
@@ -34,7 +35,7 @@ public class Event {
 	public Date getDateEvent() {
 		return dateEvent;
 	}
-	public void setDateEvent(Date dateEvent) {
+	public void setDateEvent(DateEvent dateEvent) {
 		if (dateEvent != null)
 			this.dateEvent = dateEvent;
 		else this.dateEvent = null;
@@ -61,9 +62,7 @@ public class Event {
 		Event event = new Event();
 		
 		event.setLibelle(jsonT.getString("nom"));
-		String dateStr = jsonT.getString("date");
-		SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
-		event.setDateEvent(sdf.parse(dateStr));
+		event.setDateEvent(DateEvent.stringToDate(jsonT.getString("date")));
 		event.setListTicket(Ticket.ticketListFromJSON(jsonT.getString("listeDesTickets")));
 		
 		return event;

@@ -38,11 +38,7 @@ public class EventAdapter extends ArrayAdapter<Event> {
 				libelle.setText(event.getLibelle());
 			}
 			if (dateEvent != null && event !=null ){
-				SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
-				String dateStr = "";
-				if (event.getDateEvent() != null)
-					dateStr = sdf.format(event.getDateEvent());
-				dateEvent.setText(dateStr);
+				dateEvent.setText(event.getDateEvent().toString());
 			}
 			
 			return ligne;
