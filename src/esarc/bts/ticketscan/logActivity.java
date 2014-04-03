@@ -127,7 +127,7 @@ public class logActivity extends Activity {
 	}
 
 	private String recupererJSON() {
-		String url = "https://trello-attachments.s3.amazonaws.com/5328073ffea1f3f032aa2352/533d0c222ee1771451f6ea76/cdcd7465eabe9ba7fa600b3e43f5be51/Json.json";
+		String url = "https://trello-attachments.s3.amazonaws.com/5328073ffea1f3f032aa2352/533d0c222ee1771451f6ea76/0ebd22b00f5416e8aa2f607e16f1a84d/Json.json";
 		String rep = "";
 
 		// Pour le localhost IP: 10.0.2.2 (correspond à l'émulateur)
