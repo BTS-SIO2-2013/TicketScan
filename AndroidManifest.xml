@@ -18,6 +18,7 @@
             android:label="@string/app_name" >
             
         </activity>
+
         <activity android:name="EventActivity"></activity>
         <activity android:name="logActivity"><intent-filter>
                 <action android:name="android.intent.action.MAIN" />

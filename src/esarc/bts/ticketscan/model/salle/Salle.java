@@ -2,17 +2,17 @@ package esarc.bts.ticketscan.model.salle;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.List;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import esarc.bts.ticketscan.model.event.Event;
-import esarc.bts.ticketscan.model.ticket.Ticket;
 
 public class Salle {
 	private String nom;
-	private String adresse;
 	private List<Event> listeEvent;
 	
 	public Salle() {
@@ -25,14 +25,6 @@ public class Salle {
 
 	public void setNom(String nom) {
 		this.nom = nom;
-	}
-
-	public String getAdresse() {
-		return adresse;
-	}
-
-	public void setAdresse(String adresse) {
-		this.adresse = adresse;
 	}
 
 	public List<Event> getListeEvent() {
@@ -57,7 +49,6 @@ public class Salle {
 		Salle salle = new Salle();
 		
 		salle.setNom(jsonT.getString("nom"));
-		salle.setAdresse(jsonT.getString("adresse"));
 		salle.setListeEvent(Event.eventListFromJSON(jsonT.getString("listeDesEvenements")));
 		
 		return salle;
@@ -81,5 +72,19 @@ public class Salle {
 		}
 		sortie += "]";
 		return sortie;
+	}
+
+	public static List<Salle> salleListFromJSON(String json) throws JSONException, ParseException {
+		List<Salle> list = new ArrayList<Salle>();
+		
+		JSONArray jsonArray = new JSONArray(json);
+		
+		for (int i = 0; i < jsonArray.length(); i++) {
+			JSONObject eventJSON = jsonArray.getJSONObject(i);
+			Salle salle = Salle.loadJson(eventJSON.toString());
+			list.add(salle);
+		}
+		
+		return list;
 	}
 }

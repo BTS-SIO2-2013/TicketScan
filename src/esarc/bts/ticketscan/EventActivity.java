@@ -3,12 +3,8 @@ package esarc.bts.ticketscan;
 import java.text.ParseException;
 import java.util.ArrayList;
 import org.json.JSONException;
-import org.w3c.dom.ls.LSInput;
-
 import esarc.bts.ticketscan.model.event.Event;
 import esarc.bts.ticketscan.model.event.EventAdapter;
-import esarc.bts.ticketscan.model.ticket.Ticket;
-import android.app.Activity;
 import android.app.ListActivity;
 import android.content.Intent;
 import android.os.Bundle;
@@ -16,7 +12,6 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.View;
 import android.widget.ListView;
-import android.widget.Toast;
 
 public class EventActivity extends ListActivity {
 
@@ -50,7 +45,6 @@ public class EventActivity extends ListActivity {
 		
 		Intent intent = new Intent(this, TicketScan.class);
 		intent.putExtra("listTicket", event.listTicketToJson());
-		//Toast.makeText(this, intent.getStringExtra("listTicket"), Toast.LENGTH_LONG).show();
 		startActivity(intent);
 	}
 	

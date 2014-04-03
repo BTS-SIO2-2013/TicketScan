@@ -6,7 +6,6 @@ import java.util.ArrayList;
 import org.json.JSONException;
 
 import esarc.bts.ticketscan.model.event.Event;
-import esarc.bts.ticketscan.model.event.EventAdapter;
 import esarc.bts.ticketscan.model.salle.Salle;
 import esarc.bts.ticketscan.model.salle.SalleAdapter;
 
@@ -24,33 +23,17 @@ public class SalleActivity extends ListActivity {
 		// TODO Auto-generated method stub
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_salle);
-		
-		// Initialisation en dur pour l'instant, pas de liaison BDD
+		//Récupération de la liste des tickets de l'intent
+		Intent intent = getIntent();
 		ArrayList<Salle> list = new ArrayList<Salle>();
-		try {
-			Salle salle1 = Salle.loadJson("{\"nom\":\"Bacalan\",\"adresse\":\"16 rue de l'eglise\"," +
-					"\"listeDesEvenements\": " +
-						"[{\"nom\":\"Concert\",\"date\":\"20/03/2014\"," +
-							"\"listeDesTickets\": " +
-								"[{\"nom\":\"Jean-claude\",\"code\":22 ,\"valide\":false}," +
-								"{\"nom\":\"Jean-Michel\",\"code\":15 ,\"valide\":true}]}," +
-						"{\"nom\":\"Magie\",\"date\":\"21/03/2014\"," +
-							"\"listeDesTickets\": " +
-								"[{\"nom\":\"Tristan\",\"code\":1 ,\"valide\":false}," +
-								"{\"nom\":\"Adam\",\"code\":20 ,\"valide\":true}]}]}");
-			Salle salle2 = Salle.loadJson("{\"nom\":\"Meriadec\",\"adresse\":\"1 rue de la Mairie\"," +
-					"\"listeDesEvenements\":[{\"nom\":\"Danse\",\"date\":\"27/03/2014\"," +
-					"\"listeDesTickets\": [{\"nom\":\"Alain\",\"code\":10 ,\"valide\":false}," +
-					"{\"nom\":\"Robert\",\"code\":10 ,\"valide\":true}]}," +
-					"{\"nom\":\"Theatre\",\"date\":\"01/04/2014\"," +
-					"\"listeDesTickets\": [{\"nom\":\"Alexis\",\"code\":1 ,\"valide\":false}," +
-					"{\"nom\":\"Xavier\",\"code\":20 ,\"valide\":true}]}]}");
-			list.add(salle1);
-			list.add(salle2);
-        } catch (JSONException e) {
-			Log.e("JSONE", e.getMessage());
-		} catch (ParseException e) {
-			Log.e("PARSE", e.getMessage());
+		if (intent != null){
+			try {
+				list = (ArrayList<Salle>) Salle.salleListFromJSON(intent.getStringExtra("listSalle"));
+			} catch (JSONException e) {
+				Log.e("JSONE", e.getMessage());
+			} catch (ParseException e) {
+				Log.e("Parse", e.getMessage());
+			}
 		}
         
         SalleAdapter adapter = new SalleAdapter(this,list);

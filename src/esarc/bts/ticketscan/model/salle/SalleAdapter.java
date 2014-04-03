@@ -29,15 +29,11 @@ public class SalleAdapter extends ArrayAdapter<Salle> {
 			
 			
 			TextView nom = (TextView) ligne.findViewById(R.id.textNom);
-			TextView adresse = (TextView) ligne.findViewById(R.id.textAdresse);
 			
 			Salle salle = getItem(position);
 			
 			if (nom != null && salle != null){
 				nom.setText(salle.getNom());
-			}
-			if (adresse != null && salle !=null ){
-				adresse.setText(salle.getAdresse());
 			}
 			
 			return ligne;
