@@ -61,12 +61,7 @@ public class Salle {
 		for (final Event event: this.listeEvent) {
 			sortie += separateur;
 			sortie += "{\"libelle\":" + event.getLibelle() + ",";
-			
-			SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
-			String dateStr = "";
-			if (event.getDateEvent() != null)
-				dateStr = sdf.format(event.getDateEvent());
-			sortie += "\"date\": \"" + dateStr + "\",";
+			sortie += "\"date\": \"" + event.getDateEvent().toString() + "\",";
 			sortie += "\"listeDesTickets\":" + event.listTicketToJson() + "}";
 			separateur = ",";
 		}
