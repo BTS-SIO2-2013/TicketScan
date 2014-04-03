@@ -75,15 +75,15 @@ public class logActivity extends Activity {
 					+ "{\"nom\":\"Bacalan\","
 					+ "\"listeDesEvenements\": "
 					+ "["
-					+ "{\"nom\":\"Concert\",\"date\":\"20/03/2014\","
+					+ "{\"libelle\":\"Concert\",\"date\":\"20/03/2014\","
 					+ "\"listeDesTickets\": "
-					+ "[{\"client\":{\"nom\":\"Jean-claude\"\"prenom\":\"Zinedine\"},\"code\":22 ,\"valide\":false},"
-					+ "{\"client\":{\"nom\":\"Grosmelon\"\"prenom\":\"Jean-mich\"},\"code\":15 ,\"valide\":true}]},"
-					+ "{\"nom\":\"Magie\",\"date\":\"21/03/2014\","
+					+ "[{\"client\":{\"nom\":\"Jean-claude\",\"prenom\":\"Zinedine\"},\"code\":22 ,\"valide\":false},"
+					+ "{\"client\":{\"nom\":\"Grosmelon\",\"prenom\":\"Jean-mich\"},\"code\":15 ,\"valide\":true}]},"
+					+ "{\"libelle\":\"Magie\",\"date\":\"21/03/2014\","
 					+ "\"listeDesTickets\": "
 					+ "["
-					+ "{\"client\":{\"nom\":\"Ferie\"\"prenom\":\"Tristanbgdu33\"},\"code\":1 ,\"valide\":false},"
-					+ "{\"client\":{\"nom\":\"Diouf\"\"prenom\":\"Adam\"},\"code\":20 ,\"valide\":true}"
+					+ "{\"client\":{\"nom\":\"Ferie\",\"prenom\":\"Tristan_bgdu33\"},\"code\":1 ,\"valide\":false},"
+					+ "{\"client\":{\"nom\":\"Diouf\",\"prenom\":\"Adam\"},\"code\":20 ,\"valide\":true}"
 					+ "]"
 					+ "}"
 					+ "]"
@@ -91,23 +91,19 @@ public class logActivity extends Activity {
 					+ "{\"nom\":\"Meriadec\","
 					+ "\"listeDesEvenements\":"
 					+ "["
-					+ "{\"nom\":\"Danse\",\"date\":\"27/03/2014\","
+					+ "{\"libelle\":\"Danse\",\"date\":\"27/03/2014\","
 					+ "\"listeDesTickets\": "
 					+ "["
-					+ "{\"client\":{\"nom\":\"Obahamas\"\"prenom\":\"Grandebarack\"}"
-					+ "{\"client\":{\"nom\":\"Pesse\"\"prenom\":\"Robert\"},\"code\":10 ,\"valide\":true}"
+					+ "{\"client\":{\"nom\":\"Obahamas\",\"prenom\":\"Grandebarack\"},\"code\":22 ,\"valide\":false},"
+					+ "{\"client\":{\"nom\":\"Pesse\",\"prenom\":\"Robert\"},\"code\":10 ,\"valide\":true}"
 					+ "]"
 					+ "},"
-					+ "{\"nom\":\"Theatre\",\"date\":\"01/04/2014\","
+					+ "{\"libelle\":\"Theatre\",\"date\":\"01/04/2014\","
 					+ "\"listeDesTickets\":"
 					+ "["
-					+ "{\"client\":{\"nom\":\"Maigrot\"\"prenom\":\"Alexis\"},\"code\":1 ,\"valide\":false},"
-					+ "{\"client\":{\"nom\":\"Lepompierdefer\"\"prenom\":\"Xavier\"},\"code\":20 ,\"valide\":true}"
+					+ "{\"client\":{\"nom\":\"M�m�m�gros\",\"prenom\":\"Alexis\"},\"code\":1 ,\"valide\":false},"
+					+ "{\"client\":{\"nom\":\"Lepompierdefer\",\"prenom\":\"Xavier\"},\"code\":20 ,\"valide\":true}"
 					+ "]" + "}" + "]" + "}" + "]";
-
-			// Debug
-			System.out.println("listJSON: " + listJSON);
-			System.out.println("listJSON2: " + listJSON2);
 
 			// On affiche le layout suivant
 			Intent intent = new Intent(this, SalleActivity.class);

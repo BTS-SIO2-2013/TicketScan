@@ -60,7 +60,7 @@ public class Event {
 		JSONObject jsonT = new JSONObject(json);
 		Event event = new Event();
 		
-		event.setLibelle(jsonT.getString("nom"));
+		event.setLibelle(jsonT.getString("libelle"));
 		String dateStr = jsonT.getString("date");
 		SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
 		event.setDateEvent(sdf.parse(dateStr));
@@ -78,7 +78,7 @@ public class Event {
 			Client client = ticket.getClient();
 			sortie += "{\"client\":";
 			sortie += "{\"nom\":" + client.getNom() + ",";
-			sortie += "{\"prenom\":" + client.getPrenom() + ",";
+			sortie += "\"prenom\":" + client.getPrenom() + "},";
 			sortie += "\"code\":" + ticket.getCode() + ",";
 			sortie += "\"valide\":" + ticket.getValide() + "}";
 			separateur = ",";
