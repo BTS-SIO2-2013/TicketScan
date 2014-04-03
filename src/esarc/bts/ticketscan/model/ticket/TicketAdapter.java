@@ -36,7 +36,7 @@ public class TicketAdapter extends ArrayAdapter<Ticket> {
 		Ticket ticket = getItem(position);
 		
 		if (libele != null && ticket != null){
-			libele.setText(ticket.getNom());
+			libele.setText(ticket.getClient().getNom() + " " + ticket.getClient().getPrenom());
 		}
 		if (code != null && ticket !=null ){
 			code.setText(String.valueOf(ticket.getCode()));

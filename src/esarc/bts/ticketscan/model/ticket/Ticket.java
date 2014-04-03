@@ -7,24 +7,26 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import esarc.bts.ticketscan.model.client.Client;
+
 public class Ticket {
-	private String nom;
+	private Client client;
 	private int code;
 	private Boolean valide;
 
-	public Ticket(String nom, int code, Boolean valide) {
+	public Ticket(Client client, int code, Boolean valide) {
 		super();
-		this.nom = nom;
+		this.client = client;
 		this.setCode(code);
 		this.setValide(valide);
 	}
 
-	public String getNom() {
-		return nom;
+	public Client getClient() {
+		return client;
 	}
 
-	public void setNom(String nom) {
-		this.nom = nom;
+	public void setClient(Client client) {
+		this.client = client;
 	}
 
 	public int getCode() {
@@ -45,7 +47,8 @@ public class Ticket {
 
 	public static Ticket loadJson(String json) throws JSONException {
 		JSONObject jsonT = new JSONObject(json);
-		return new Ticket(jsonT.getString("nom"),jsonT.getInt("code"), jsonT.getBoolean("valide"));
+		Client client = Client.loadJson(jsonT.getString("client"));
+		return new Ticket(client,jsonT.getInt("code"), jsonT.getBoolean("valide"));
 	}
 
 	public static List<Ticket> ticketListFromJSON(String json) throws JSONException {

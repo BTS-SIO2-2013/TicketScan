@@ -11,6 +11,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import esarc.bts.ticketscan.model.client.Client;
 import esarc.bts.ticketscan.model.ticket.Ticket;
 
 public class Event {
@@ -75,7 +76,10 @@ public class Event {
 		String separateur = "";
 		for (final Ticket ticket: this.listTicket) {
 			sortie += separateur;
-			sortie += "{\"nom\":" + ticket.getNom() + ",";
+			Client client = ticket.getClient();
+			sortie += "{\"client\":";
+			sortie += "{\"nom\":" + client.getNom() + ",";
+			sortie += "{\"prenom\":" + client.getPrenom() + ",";
 			sortie += "\"code\":" + ticket.getCode() + ",";
 			sortie += "\"valide\":" + ticket.getValide() + "}";
 			separateur = ",";
