@@ -11,10 +11,22 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
 import android.view.View;
+import android.view.View.OnClickListener;
+import android.widget.Button;
 import android.widget.ListView;
+import android.widget.TextView;
 
-public class EventActivity extends ListActivity {
 
+import esarc.bts.zxing.integration.android.IntentIntegrator;
+import esarc.bts.zxing.integration.android.IntentResult;
+import android.app.Activity;
+import android.widget.Toast;
+
+public class EventActivity extends ListActivity implements OnClickListener{
+	
+	private Button scanBtn;
+	private TextView formatTxt, contentTxt;
+	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -35,8 +47,35 @@ public class EventActivity extends ListActivity {
         
         EventAdapter adapter = new EventAdapter(this,list);
         setListAdapter(adapter);
+        
+        // Barcode Reader
+        scanBtn = (Button)findViewById(R.id.scan_button);
+	    formatTxt = (TextView)findViewById(R.id.scan_format);
+	    contentTxt = (TextView)findViewById(R.id.scan_content);
+	    scanBtn.setOnClickListener(this);
 	}
-
+	
+	public void onClick(View v){
+		if(v.getId()==R.id.scan_button){
+			IntentIntegrator scanIntegrator = new IntentIntegrator(this);
+			scanIntegrator.initiateScan();
+		}
+	}
+	
+	public void onActivityResult(int requestCode, int resultCode, Intent intent) {
+		IntentResult scanningResult = IntentIntegrator.parseActivityResult(requestCode, resultCode, intent);
+		if (scanningResult != null) {
+			String scanContent = scanningResult.getContents();
+			String scanFormat = scanningResult.getFormatName();
+			formatTxt.setText("FORMAT: " + scanFormat);
+			contentTxt.setText("CONTENT: " + scanContent);
+		}else{
+		    Toast toast = Toast.makeText(getApplicationContext(), 
+		            "Aucune donnée", Toast.LENGTH_SHORT);
+		    toast.show();
+		}
+	}
+	
 	@Override
 	protected void onListItemClick(ListView l, View v, int position, long id) {
 		super.onListItemClick(l, v, position, id);
