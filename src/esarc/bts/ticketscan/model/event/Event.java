@@ -16,7 +16,6 @@ import esarc.bts.ticketscan.model.ticket.Ticket;
 public class Event {
 	
 	private String libelle;
-	private Date dateEvent;
 	private List<Ticket> listTicket;
 	
 	public Event(){
@@ -31,10 +30,8 @@ public class Event {
 		else this.libelle = null;
 	}
 	
-	public Date getDateEvent() {
 		return dateEvent;
 	}
-	public void setDateEvent(Date dateEvent) {
 		if (dateEvent != null)
 			this.dateEvent = dateEvent;
 		else this.dateEvent = null;
@@ -60,10 +57,8 @@ public class Event {
 		JSONObject jsonT = new JSONObject(json);
 		Event event = new Event();
 		
-		event.setLibelle(jsonT.getString("nom"));
-		String dateStr = jsonT.getString("date");
-		SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
-		event.setDateEvent(sdf.parse(dateStr));
+		event.setLibelle(jsonT.getString("libelle"));
+		event.setDateEvent(DateEvent.stringToDate(jsonT.getString("date")));
 		event.setListTicket(Ticket.ticketListFromJSON(jsonT.getString("listeDesTickets")));
 		
 		return event;

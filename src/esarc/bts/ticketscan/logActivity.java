@@ -1,5 +1,7 @@
 package esarc.bts.ticketscan;
 
+import java.util.concurrent.ExecutionException;
+
 import org.json.JSONException;
 
 import android.app.Activity;
@@ -9,6 +11,7 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.Toast;
+import esarc.bts.ticketscan.model.Connection.Connection;
 import esarc.bts.ticketscan.model.hash.Hash;
 import esarc.bts.ticketscan.model.message.MessageLogin;
 import esarc.bts.ticketscan.model.user.user;
@@ -17,7 +20,6 @@ public class logActivity extends Activity {
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
-		// TODO Auto-generated method stub
 		super.onCreate(savedInstanceState);
 		this.setContentView(R.layout.activity_log);
 	}
@@ -67,40 +69,53 @@ public class logActivity extends Activity {
 			progressBar.setVisibility(View.INVISIBLE);
 
 			// Initialisation en dur pour l'instant, pas de liaison BDD
-			String listJSon = "["
+			String listJSON2 = this.recupererJSON();
+
+			String listJSON = "["
 					+ "{\"nom\":\"Bacalan\","
 					+ "\"listeDesEvenements\": "
 					+ "["
 					+ "{\"nom\":\"Concert\",\"date\":\"20/03/2014\","
 					+ "\"listeDesTickets\": "
-					+ "[{\"client\":{\"nom\":\"Jean-claude\"\"prenom\":\"Zinedine\"},\"code\":22 ,\"valide\":false},"
-					+ "{\"client\":{\"nom\":\"Grosmelon\"\"prenom\":\"Jean-mich\"},\"code\":15 ,\"valide\":true}]},"
-					+ "{\"nom\":\"Magie\",\"date\":\"21/03/2014\","
-					+ "\"listeDesTickets\": " + "["
-					+ "{\"client\":{\"nom\":\"Ferie\"\"prenom\":\"Tristan_bgdu33\"},\"code\":1 ,\"valide\":false},"
-					+ "{\"client\":{\"nom\":\"Diouf\"\"prenom\":\"Adam\"},\"code\":20 ,\"valide\":true}" + "]"
-					+ "}" + "]" + "}," + "{\"nom\":\"Meriadec\","
-					+ "\"listeDesEvenements\":" + "["
-					+ "{\"nom\":\"Danse\",\"date\":\"27/03/2014\","
-					+ "\"listeDesTickets\": " + "["
-					+ "{\"client\":{\"nom\":\"Obahamas\"\"prenom\":\"Grandebarack\"}"
-					+ "{\"client\":{\"nom\":\"Pesse\"\"prenom\":\"Robert\"},\"code\":10 ,\"valide\":true}" + "]"
-					+ "}," + "{\"nom\":\"Theatre\",\"date\":\"01/04/2014\","
-					+ "\"listeDesTickets\":" + "["
-					+ "{\"client\":{\"nom\":\"Mémémégros\"\"prenom\":\"Alexis\"},\"code\":1 ,\"valide\":false},"
-					+ "{\"client\":{\"nom\":\"Lepompierdefer\"\"prenom\":\"Xavier\"},\"code\":20 ,\"valide\":true}" + "]"
-					+ "}" + "]" + "}" + "]";
+					+ "[{\"client\":{\"nom\":\"Jean-claude\",\"prenom\":\"Zinedine\"},\"code\":22 ,\"valide\":false},"
+					+ "{\"client\":{\"nom\":\"Grosmelon\",\"prenom\":\"Jean-mich\"},\"code\":15 ,\"valide\":true}]},"
+					+ "{\"libelle\":\"Magie\",\"date\":\"21/03/2014\","
+					+ "\"listeDesTickets\": "
+					+ "["
+					+ "{\"client\":{\"nom\":\"Ferie\",\"prenom\":\"Tristan_bgdu33\"},\"code\":1 ,\"valide\":false},"
+					+ "{\"client\":{\"nom\":\"Diouf\",\"prenom\":\"Adam\"},\"code\":20 ,\"valide\":true}"
+					+ "]"
+					+ "}"
+					+ "]"
+					+ "},"
+					+ "{\"nom\":\"Meriadec\","
+					+ "\"listeDesEvenements\":"
+					+ "["
+					+ "{\"libelle\":\"Danse\",\"date\":\"27/03/2014\","
+					+ "\"listeDesTickets\": "
+					+ "["
+					+ "{\"client\":{\"nom\":\"Obahamas\",\"prenom\":\"Grandebarack\"},\"code\":22 ,\"valide\":false},"
+					+ "{\"client\":{\"nom\":\"Pesse\",\"prenom\":\"Robert\"},\"code\":10 ,\"valide\":true}"
+					+ "]"
+					+ "},"
+					+ "{\"libelle\":\"Theatre\",\"date\":\"01/04/2014\","
+					+ "\"listeDesTickets\":"
+					+ "["
+					+ "{\"client\":{\"nom\":\"Mï¿½mï¿½mï¿½gros\",\"prenom\":\"Alexis\"},\"code\":1 ,\"valide\":false},"
+					+ "{\"client\":{\"nom\":\"Lepompierdefer\",\"prenom\":\"Xavier\"},\"code\":20 ,\"valide\":true}"
+					+ "]" + "}" + "]" + "}" + "]";
 
 			// On affiche le layout suivant
 			Intent intent = new Intent(this, SalleActivity.class);
 			// On envoie les donnÃ©es au layout
-			intent.putExtra("listSalle", listJSon);
+			intent.putExtra("listSalle", listJSON2);
 			// On "affiche"
 			this.startActivity(intent);
 
 		} else {
 			// Debug
-			System.out.println("Authentification KO");
+			System.out.println("Authentification KO : "
+					+ messageLogin.getMessage().toString());
 
 			// Si l'authentification n'est pas correct on affiche un toast avec
 			// le message d'erreur associÃ©
@@ -109,6 +124,32 @@ public class logActivity extends Activity {
 					.show();
 		}
 
+	}
+
+	private String recupererJSON() {
+		String url = "https://trello-attachments.s3.amazonaws.com/5328073ffea1f3f032aa2352/533d0c222ee1771451f6ea76/0ebd22b00f5416e8aa2f607e16f1a84d/Json.json";
+		String rep = "";
+
+		// Pour le localhost IP: 10.0.2.2 (correspond Ã  l'Ã©mulateur)
+		// String url = "http://10.0.2.2/test.json";
+
+		if (Connection.isNetworkAvailable(this)) {
+			try {
+				rep = new Connection().execute(url).get();
+			} catch (InterruptedException e) {
+				System.out.println("InterruptedException: " + e);
+				e.printStackTrace();
+			} catch (ExecutionException e) {
+				System.out.println("ExecutionException: " + e);
+				e.printStackTrace();
+			}
+		} else {
+			System.out.println("No network connection available.");
+			Toast.makeText(this.getApplicationContext(),
+					"No network connection available.", Toast.LENGTH_SHORT)
+					.show();
+		}
+		return rep;
 	}
 
 	public void envoyerDonneeConnexion(String login, String mdp) {
