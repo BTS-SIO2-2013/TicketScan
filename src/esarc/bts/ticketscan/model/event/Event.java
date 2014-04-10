@@ -90,6 +90,7 @@ public class Event {
 	    sortie += "{\"client\":";
 	    sortie += "{\"nom\":" + client.getNom() + ",";
 	    sortie += "{\"prenom\":" + client.getPrenom() + ",";
+	    sortie += "\"prenom\":" + client.getPrenom() + "},";
 	    sortie += "\"code\":" + ticket.getCode() + ",";
 	    sortie += "\"valide\":" + ticket.getValide() + "}";
 	    separateur = ",";
