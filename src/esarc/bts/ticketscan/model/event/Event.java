@@ -12,11 +12,13 @@ import org.json.JSONObject;
 
 import esarc.bts.ticketscan.model.client.Client;
 import esarc.bts.ticketscan.model.ticket.Ticket;
+import esarc.bts.ticketscan.model.dateevent.DateEvent;
 
 public class Event {
 	
 	private String libelle;
 	private List<Ticket> listTicket;
+	private DateEvent dateEvent;
 	
 	public Event(){
 		super();
@@ -28,10 +30,12 @@ public class Event {
 		if (libelle != null) 
 				this.libelle = libelle;
 		else this.libelle = null;
+		
 	}
-	
-		return dateEvent;
+	public DateEvent getDateEvent(){
+		return this.dateEvent;
 	}
+	public void setDateEvent(DateEvent dateEvent){
 		if (dateEvent != null)
 			this.dateEvent = dateEvent;
 		else this.dateEvent = null;
