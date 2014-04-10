@@ -58,6 +58,23 @@ public class Event {
 	    this.listTicket = null;
 	}
     }
+	
+	public String listTicketToJson(){
+		String sortie = "[";
+		String separateur = "";
+		for (final Ticket ticket: this.listTicket) {
+			sortie += separateur;
+			Client client = ticket.getClient();
+			sortie += "{\"client\":";
+			sortie += "{\"nom\":" + client.getNom() + ",";
+			sortie += "\"prenom\":" + client.getPrenom() + "},";
+			sortie += "\"code\":" + ticket.getCode() + ",";
+			sortie += "\"valide\":" + ticket.getValide() + "}";
+			separateur = ",";
+		}
+		sortie += "]";
+		return sortie;
+    }
 
     public void addTicket(final Ticket ticket) {
 	this.listTicket.add(ticket);
@@ -79,23 +96,6 @@ public class Event {
 
 	return event;
 
-    }
-
-    public String listTicketToJson() {
-	String sortie = "[";
-	String separateur = "";
-	for (final Ticket ticket : this.listTicket) {
-	    sortie += separateur;
-	    Client client = ticket.getClient();
-	    sortie += "{\"client\":";
-	    sortie += "{\"nom\":" + client.getNom() + ",";
-	    sortie += "\"prenom\":" + client.getPrenom() + "},";
-	    sortie += "\"code\":" + ticket.getCode() + ",";
-	    sortie += "\"valide\":" + ticket.getValide() + "}";
-	    separateur = ",";
-	}
-	sortie += "]";
-	return sortie;
     }
 
     public static List<Event> eventListFromJSON(final String json)
