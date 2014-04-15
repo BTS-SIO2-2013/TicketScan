@@ -23,13 +23,28 @@ import android.os.AsyncTask;
 // which is
 // displayed in the UI by the AsyncTask's onPostExecute method.
 public class Connection extends AsyncTask<String, Void, String> {
-
+	
+	private String id;
+	private String mdp;
+	private String methode;
+	
+	public Connection (String id, String mdp, String methode){
+		this.id=id;
+		this.mdp=mdp;
+		this.setMethode(methode);
+	}
+	public Connection (){
+		this.id=null;
+		this.mdp=null;
+		this.setMethode("GET");
+	}
+	
     @Override
     protected String doInBackground(final String... urls) {
 
 	// params comes from the execute() call: params[0] is the url.
 	try {
-	    return Connection.downloadUrl(urls[0]);
+	    return Connection.downloadUrl(urls[0], this.getMethode(), this.getId(), this.getMdp());
 	} catch (IOException e) {
 	    return "Unable to retrieve web page. URL may be invalid.";
 	}
@@ -63,7 +78,7 @@ public class Connection extends AsyncTask<String, Void, String> {
     // Given a URL, establishes an HttpUrlConnection and retrieves
     // the web page content as a InputStream, which it returns as
     // a string.
-    public static String downloadUrl(final String myurl) throws IOException {
+    public static String downloadUrl(final String myurl, final String methode, final String id, final String mdp) throws IOException {
 	InputStream is = null;
 
 	try {
@@ -77,7 +92,15 @@ public class Connection extends AsyncTask<String, Void, String> {
 	    conn.setConnectTimeout(15000);
 
 	    // La methode de la requete HTTP
-	    conn.setRequestMethod("GET");
+	    if (methode == "POST"){
+	    	conn.setRequestMethod("POST");
+	    	conn.setRequestProperty("id", id);
+	    	conn.setRequestProperty("mdp", mdp);
+	    	
+	    }else{
+	    	conn.setRequestMethod("GET");
+	    }
+	    
 
 	    conn.setDoInput(true);
 	    // Starts the query
@@ -101,7 +124,19 @@ public class Connection extends AsyncTask<String, Void, String> {
 	}
     }
 
-    // Reads an InputStream and converts it to a String.
+    public String getId() {
+		return id;
+	}
+	public void setId(String id) {
+		this.id = id;
+	}
+	public String getMdp() {
+		return mdp;
+	}
+	public void setMdp(String mdp) {
+		this.mdp = mdp;
+	}
+	// Reads an InputStream and converts it to a String.
     private static String toString(final InputStream stream)
 	    throws IOException, UnsupportedEncodingException {
 	BufferedReader r = new BufferedReader(new InputStreamReader(stream));
@@ -112,5 +147,11 @@ public class Connection extends AsyncTask<String, Void, String> {
 	}
 	return total.toString();
     }
+	public String getMethode() {
+		return methode;
+	}
+	public void setMethode(String methode) {
+		this.methode = methode;
+	}
 
 }

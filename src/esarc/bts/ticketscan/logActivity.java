@@ -20,21 +20,20 @@ public class logActivity extends Activity {
 
     @Override
     protected void onCreate(final Bundle savedInstanceState) {
-	super.onCreate(savedInstanceState);
-	this.setContentView(R.layout.activity_log);
+    	super.onCreate(savedInstanceState);
+    	this.setContentView(R.layout.activity_log);
     }
 
     // Se produit lorsqu'on clique sur le bouton de connexion
     public void onClick(final View v) {
-	EditText txtNom = (EditText) findViewById(R.id.txtNom);
-	EditText txtMDP = (EditText) findViewById(R.id.txtMDP);
+    	EditText txtNom = (EditText) findViewById(R.id.txtNom);
+    	EditText txtMDP = (EditText) findViewById(R.id.txtMDP);
 
-	// Envoie des donnees (JSON) au serveur
-	envoyerDonneeConnexion(txtNom.getText().toString(), txtMDP.getText()
-		.toString());
-
-	// Verification des donnees recus
-	verifier();
+    	// Envoie des donnees (JSON) au serveur
+    	String json = envoyerDonneeConnexion(txtNom.getText().toString(), txtMDP.getText().toString());
+    	System.out.println("Json: " + json);
+    	// Verification des donnees recus
+    	verifier(json);
     }
 
     public void onClickTxtMDPOublie(final View v) {
@@ -42,17 +41,12 @@ public class logActivity extends Activity {
 		.show();
     }
 
-    public void verifier() {
+    public void verifier(String json) {
 	MessageLogin messageLogin = new MessageLogin();
 	ProgressBar progressBar = (ProgressBar) findViewById(R.id.progressBarLog);
 
 	// On affiche la progress bar
 	progressBar.setVisibility(View.VISIBLE);
-
-	// Variable Json permettant de simuler une authentification correcte sur
-	// le serveur
-	String json = "{\"autOk\":\"" + true + "\"," + "\"message\":\"" + null
-		+ "\"}";
 
 	try {
 	    messageLogin = MessageLogin.fromJSON(json);
@@ -117,11 +111,33 @@ public class logActivity extends Activity {
 	return rep;
     }
 
-    public void envoyerDonneeConnexion(final String login, final String mdp) {
+    public String envoyerDonneeConnexion(final String login, final String mdp) {
 
 	user user = new user(login, Hash.toSHA(mdp));
 	user.toJSONLog();
 	// TODO envoyez le JSON a la BDD
+	String url = "http://127.0.0.1/BilletMaster/mobile/connection.php";
+	String rep = "";
 
+	// Pour le localhost IP: 10.0.2.2 (correspond a l'emulateur)
+	// String url = "http://10.0.2.2/test.json";
+
+	if (Connection.isNetworkAvailable(this)) {
+	    try {
+		rep = new Connection(login,mdp,"POST").execute(url).get();
+	    } catch (InterruptedException e) {
+		System.out.println("InterruptedException: " + e);
+		e.printStackTrace();
+	    } catch (ExecutionException e) {
+		System.out.println("ExecutionException: " + e);
+		e.printStackTrace();
+	    }
+	} else {
+	    System.out.println("No network connection available.");
+	    Toast.makeText(getApplicationContext(),
+		    "No network connection available.", Toast.LENGTH_SHORT)
+		    .show();
+	}
+	return rep;
     }
 }
