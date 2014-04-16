@@ -15,39 +15,37 @@ import esarc.bts.ticketscan.model.salle.Salle;
 import esarc.bts.ticketscan.model.salle.SalleAdapter;
 
 public class SalleActivity extends ListActivity {
-
     @Override
-    protected void onCreate(final Bundle savedInstanceState) {
-	// TODO Auto-generated method stub
-	super.onCreate(savedInstanceState);
-	setContentView(R.layout.activity_salle);
-	// Récupération de la liste des tickets de l'intent
-	Intent intent = getIntent();
-	ArrayList<Salle> list = new ArrayList<Salle>();
-	if (intent != null) {
-	    try {
-		list = (ArrayList<Salle>) Salle.salleListFromJSON(intent
-			.getStringExtra("listSalle"));
-	    } catch (JSONException e) {
-		Log.e("JSONE", e.getMessage());
-	    } catch (ParseException e) {
-		Log.e("Parse", e.getMessage());
-	    }
-	}
-
-	SalleAdapter adapter = new SalleAdapter(this, list);
-	setListAdapter(adapter);
+    protected final void onCreate(final Bundle savedInstanceState) {
+        // TODO Auto-generated method stub
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_salle);
+        // Récupération de la liste des tickets de l'intent
+        Intent intent = getIntent();
+        ArrayList<Salle> list = new ArrayList<Salle>();
+        if (intent != null) {
+            try {
+                list = (ArrayList<Salle>) Salle.salleListFromJSON(intent
+                        .getStringExtra("listSalle"));
+            } catch (JSONException e) {
+                Log.e("JSONE", e.getMessage());
+            } catch (ParseException e) {
+                Log.e("Parse", e.getMessage());
+            }
+        }
+        SalleAdapter adapter = new SalleAdapter(this, list);
+        setListAdapter(adapter);
     }
 
     @Override
-    protected void onListItemClick(final ListView l, final View v,
-	    final int position, final long id) {
-	super.onListItemClick(l, v, position, id);
-	Salle salle = (Salle) l.getItemAtPosition(position);
+    protected final void onListItemClick(final ListView l, final View v,
+            final int position, final long id) {
+        super.onListItemClick(l, v, position, id);
+        Salle salle = (Salle) l.getItemAtPosition(position);
 
-	Intent intent = new Intent(this, EventActivity.class);
-	intent.putExtra("listEvent", salle.listEventToJson());
-	startActivity(intent);
+        Intent intent = new Intent(this, EventActivity.class);
+        intent.putExtra("listEvent", salle.listEventToJson());
+        startActivity(intent);
     }
 
 }

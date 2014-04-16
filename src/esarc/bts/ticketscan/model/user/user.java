@@ -1,118 +1,119 @@
 package esarc.bts.ticketscan.model.user;
 
-public class user {
-	private int id;
-	private String nom;
-	private String prenom;
-	private String mail;
-	private String telephone;
-	private String login;
-	private String mdp;
+public class User {
+    private int    id;
+    private String nom;
+    private String prenom;
+    private String mail;
+    private String telephone;
+    private String login;
+    private String mdp;
 
-	public int getId() {
-		return this.id;
-	}
+    public final int getId() {
+        return this.id;
+    }
 
-	public void setId(int id) {
-		this.id = id;
-	}
+    public final void setId(final int pId) {
+        this.id = pId;
+    }
 
-	public String getNom() {
-		return this.nom;
-	}
+    public final String getNom() {
+        return this.nom;
+    }
 
-	public void setNom(String nom) {
-		this.nom = nom;
-	}
+    public final void setNom(final String pNom) {
+        this.nom = pNom;
+    }
 
-	public String getPrenom() {
-		return this.prenom;
-	}
+    public final String getPrenom() {
+        return this.prenom;
+    }
 
-	public void setPrenom(String prenom) {
-		this.prenom = prenom;
-	}
+    public final void setPrenom(final String pPrenom) {
+        this.prenom = pPrenom;
+    }
 
-	public String getMail() {
-		return this.mail;
-	}
+    public final String getMail() {
+        return this.mail;
+    }
 
-	public void setMail(String mail) {
-		this.mail = mail;
-	}
+    public final void setMail(final String pMail) {
+        this.mail = pMail;
+    }
 
-	public String getTelephone() {
-		return this.telephone;
-	}
+    public final String getTelephone() {
+        return this.telephone;
+    }
 
-	public void setTelephone(String telephone) {
-		this.telephone = telephone;
-	}
+    public final void setTelephone(final String pTelephone) {
+        this.telephone = pTelephone;
+    }
 
-	public String getLogin() {
-		return this.login;
-	}
+    public final String getLogin() {
+        return this.login;
+    }
 
-	public void setLogin(String login) {
-		this.login = login;
-	}
+    public final void setLogin(final String pLogin) {
+        this.login = pLogin;
+    }
 
-	public String getMdp() {
-		return this.mdp;
-	}
+    public final String getMdp() {
+        return this.mdp;
+    }
 
-	public void setMdp(String mdp) {
-		this.mdp = mdp;
-	}
+    public final void setMdp(final String pMdp) {
+        this.mdp = pMdp;
+    }
 
-	public user() {
-		this.id = -1;
-		this.nom = "";
-		this.prenom = "";
-		this.mail = "";
-		this.telephone = "";
-		this.login = "";
-		this.mdp = "";
-	}
+    public User() {
+        this.id = -1;
+        this.nom = "";
+        this.prenom = "";
+        this.mail = "";
+        this.telephone = "";
+        this.login = "";
+        this.mdp = "";
+    }
 
-	public user(String login, String mdp) {
-		this.id = -1;
-		this.nom = "";
-		this.prenom = "";
-		this.mail = "";
-		this.telephone = "";
-		this.login = login;
-		this.mdp = mdp;
-	}
+    public User(final String pLogin, final String pMdp) {
+        this.id = -1;
+        this.nom = "";
+        this.prenom = "";
+        this.mail = "";
+        this.telephone = "";
+        this.login = pLogin;
+        this.mdp = pMdp;
+    }
 
-	public user(int id, String nom, String prenom, String mail,
-			String telephone, String login, String mdp) {
-		this.id = id;
-		this.nom = nom;
-		this.prenom = prenom;
-		this.mail = mail;
-		this.telephone = telephone;
-		this.login = login;
-		this.mdp = mdp;
-	}
+    public User(final int pId, final String pNom, final String pPrenom,
+            final String pMail, final String pTelephone, final String pLogin,
+            final String pMdp) {
+        this.id = pId;
+        this.nom = pNom;
+        this.prenom = pPrenom;
+        this.mail = pMail;
+        this.telephone = pTelephone;
+        this.login = pLogin;
+        this.mdp = pMdp;
+    }
 
-	public String toJSONFull() {
-		String json = "{\"id\":" + this.getId() + "," + "\"nom\":\""
-				+ this.getNom() + "\"," + "\"prenom\":\"" + this.getPrenom()
-				+ "\"," + "\"mail\":\"" + this.getMail() + "\","
-				+ "\"telephone\":\"" + this.getTelephone() + "\","
-				+ "\"login\":\"" + this.getLogin() + "\"," + "\"mdp\":\""
-				+ this.getMdp() + "\"}";
+    public final String toJSONFull() {
+        String json = "{\"id\":" + this.getId() + "," + "\"nom\":\""
+                + this.getNom() + "\"," + "\"prenom\":\"" + this.getPrenom()
+                + "\"," + "\"mail\":\"" + this.getMail() + "\","
+                + "\"telephone\":\"" + this.getTelephone() + "\","
+                + "\"login\":\"" + this.getLogin() + "\"," + "\"mdp\":\""
+                + this.getMdp() + "\"}";
 
-		System.out.println(json);
-		return json;
-	}
+        System.out.println(json);
+        return json;
+    }
 
-	public String toJSONLog() {
-		String json = "{\"login\":\"" + this.getLogin() + "\"," + "\"mdp\":\""
-				+ this.getMdp() + "\"}";
+    public final String toJSONLog() {
+        String json = "{\"login\":\"" + this.getLogin() + "\"," + "\"mdp\":\""
+                + this.getMdp() + "\"}";
 
-		System.out.println(json);
-		return json;
-	}
+        System.out.println(json);
+        return json;
+    }
 }

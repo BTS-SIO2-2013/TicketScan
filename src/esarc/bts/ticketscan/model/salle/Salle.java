@@ -11,77 +11,77 @@ import org.json.JSONObject;
 import esarc.bts.ticketscan.model.event.Event;
 
 public class Salle {
-    private String nom;
+    private String      nom;
     private List<Event> listeEvent;
 
     public Salle() {
-	super();
+        super();
     }
 
-    public String getNom() {
-	return this.nom;
+    public final String getNom() {
+        return this.nom;
     }
 
-    public void setNom(final String nom) {
-	this.nom = nom;
+    public final void setNom(final String pNom) {
+        this.nom = pNom;
     }
 
-    public List<Event> getListeEvent() {
-	return this.listeEvent;
+    public final List<Event> getListeEvent() {
+        return this.listeEvent;
     }
 
-    public void setListeEvent(final List<Event> listeEvent) {
-	this.listeEvent = listeEvent;
+    public final void setListeEvent(final List<Event> pListeEvent) {
+        this.listeEvent = pListeEvent;
     }
 
-    public void addEvent(final Event event) {
-	this.listeEvent.add(event);
+    public final void addEvent(final Event event) {
+        this.listeEvent.add(event);
     }
 
-    public void removeEvent(final Event event) {
-	this.listeEvent.remove(event);
+    public final void removeEvent(final Event event) {
+        this.listeEvent.remove(event);
     }
 
     public static Salle loadJson(final String json) throws JSONException,
-	    ParseException {
+            ParseException {
 
-	JSONObject jsonT = new JSONObject(json);
-	Salle salle = new Salle();
+        JSONObject jsonT = new JSONObject(json);
+        Salle salle = new Salle();
 
-	salle.setNom(jsonT.getString("nom"));
-	salle.setListeEvent(Event.eventListFromJSON(jsonT
-		.getString("listeDesEvenements")));
+        salle.setNom(jsonT.getString("nom"));
+        salle.setListeEvent(Event.eventListFromJSON(jsonT
+                .getString("listeDesEvenements")));
 
-	return salle;
+        return salle;
 
     }
 
-    public String listEventToJson() {
-	String sortie = "[";
-	String separateur = "";
-	for (final Event event : this.listeEvent) {
-	    sortie += separateur;
-	    sortie += "{\"libelle\":" + event.getLibelle() + ",";
-	    sortie += "\"date\": \"" + event.getDateEvent().toString() + "\",";
-	    sortie += "\"listeDesTickets\":" + event.listTicketToJson() + "}";
-	    separateur = ",";
-	}
-	sortie += "]";
-	return sortie;
+    public final String listEventToJson() {
+        String sortie = "[";
+        String separateur = "";
+        for (final Event event : this.listeEvent) {
+            sortie += separateur;
+            sortie += "{\"libelle\":" + event.getLibelle() + ",";
+            sortie += "\"date\": \"" + event.getDateEvent().toString() + "\",";
+            sortie += "\"listeDesTickets\":" + event.listTicketToJson() + "}";
+            separateur = ",";
+        }
+        sortie += "]";
+        return sortie;
     }
 
     public static List<Salle> salleListFromJSON(final String json)
-	    throws JSONException, ParseException {
-	List<Salle> list = new ArrayList<Salle>();
+            throws JSONException, ParseException {
+        List<Salle> list = new ArrayList<Salle>();
 
-	JSONArray jsonArray = new JSONArray(json);
+        JSONArray jsonArray = new JSONArray(json);
 
-	for (int i = 0; i < jsonArray.length(); i++) {
-	    JSONObject eventJSON = jsonArray.getJSONObject(i);
-	    Salle salle = Salle.loadJson(eventJSON.toString());
-	    list.add(salle);
-	}
+        for (int i = 0; i < jsonArray.length(); i++) {
+            JSONObject eventJSON = jsonArray.getJSONObject(i);
+            Salle salle = Salle.loadJson(eventJSON.toString());
+            list.add(salle);
+        }
 
-	return list;
+        return list;
     }
 }

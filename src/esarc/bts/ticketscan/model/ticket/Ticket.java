@@ -10,58 +10,60 @@ import org.json.JSONObject;
 import esarc.bts.ticketscan.model.client.Client;
 
 public class Ticket {
-	private Client client;
-	private int code;
-	private Boolean valide;
+    private Client  client;
+    private int     code;
+    private Boolean valide;
 
-	public Ticket(Client client, int code, Boolean valide) {
-		super();
-		this.client = client;
-		this.setCode(code);
-		this.setValide(valide);
-	}
+    public Ticket(final Client pClient, final int pCode, final Boolean pValide) {
+        super();
+        this.client = pClient;
+        this.setCode(pCode);
+        this.setValide(pValide);
+    }
 
-	public Client getClient() {
-		return client;
-	}
+    public final Client getClient() {
+        return this.client;
+    }
 
-	public void setClient(Client client) {
-		this.client = client;
-	}
+    public final void setClient(final Client pClient) {
+        this.client = pClient;
+    }
 
-	public int getCode() {
-		return code;
-	}
+    public final int getCode() {
+        return this.code;
+    }
 
-	public void setCode(int code) {
-		this.code = code;
-	}
+    public final void setCode(final int pCode) {
+        this.code = pCode;
+    }
 
-	public Boolean getValide() {
-		return valide;
-	}
+    public final Boolean getValide() {
+        return this.valide;
+    }
 
-	public void setValide(Boolean valide) {
-		this.valide = valide;
-	}
+    public final void setValide(final Boolean pValide) {
+        this.valide = pValide;
+    }
 
-	public static Ticket loadJson(String json) throws JSONException {
-		JSONObject jsonT = new JSONObject(json);
-		Client client = Client.loadJson(jsonT.getString("client"));
-		return new Ticket(client,jsonT.getInt("code"), jsonT.getBoolean("valide"));
-	}
+    public static Ticket loadJson(final String json) throws JSONException {
+        JSONObject jsonT = new JSONObject(json);
+        Client client = Client.loadJson(jsonT.getString("client"));
+        return new Ticket(client, jsonT.getInt("code"),
+                jsonT.getBoolean("valide"));
+    }
 
-	public static List<Ticket> ticketListFromJSON(String json) throws JSONException {
-		List<Ticket> list = new ArrayList<Ticket>();
-		
-		JSONArray jsonArray = new JSONArray(json);
-		
-		for (int i = 0; i < jsonArray.length(); i++) {
-			JSONObject ticketJSON = jsonArray.getJSONObject(i);
-			Ticket ticket = Ticket.loadJson(ticketJSON.toString());
-			list.add(ticket);
-		}
-		
-		return list;
-	}
+    public static List<Ticket> ticketListFromJSON(final String json)
+            throws JSONException {
+        List<Ticket> list = new ArrayList<Ticket>();
+
+        JSONArray jsonArray = new JSONArray(json);
+
+        for (int i = 0; i < jsonArray.length(); i++) {
+            JSONObject ticketJSON = jsonArray.getJSONObject(i);
+            Ticket ticket = Ticket.loadJson(ticketJSON.toString());
+            list.add(ticket);
+        }
+
+        return list;
+    }
 }

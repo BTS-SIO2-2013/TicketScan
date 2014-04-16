@@ -4,7 +4,6 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.io.UnsupportedEncodingException;
 import java.net.HttpURLConnection;
 import java.net.URL;
 
@@ -23,135 +22,144 @@ import android.os.AsyncTask;
 // which is
 // displayed in the UI by the AsyncTask's onPostExecute method.
 public class Connection extends AsyncTask<String, Void, String> {
-	
-	private String id;
-	private String mdp;
-	private String methode;
-	
-	public Connection (String id, String mdp, String methode){
-		this.id=id;
-		this.mdp=mdp;
-		this.setMethode(methode);
-	}
-	public Connection (){
-		this.id=null;
-		this.mdp=null;
-		this.setMethode("GET");
-	}
-	
-    @Override
-    protected String doInBackground(final String... urls) {
 
-	// params comes from the execute() call: params[0] is the url.
-	try {
-	    return Connection.downloadUrl(urls[0], this.getMethode(), this.getId(), this.getMdp());
-	} catch (IOException e) {
-	    return "Unable to retrieve web page. URL may be invalid.";
-	}
+    private static final int connectTimeOut = 15000;
+    private static final int timeOut        = 10000;
+    private String           id;
+    private String           mdp;
+    private String           methode;
+
+    public Connection(final String pId, final String pMdp, final String pMethode) {
+        this.id = pId;
+        this.mdp = pMdp;
+        this.setMethode(this.methode);
+    }
+
+    public Connection() {
+        this.id = null;
+        this.mdp = null;
+        this.setMethode("GET");
+    }
+
+    @Override
+    protected final String doInBackground(final String... urls) {
+
+        // params comes from the execute() call: params[0] is the url.
+        try {
+            return Connection.downloadUrl(urls[0], this.getMethode(),
+                    this.getId(), this.getMdp());
+        } catch (IOException e) {
+            return "Unable to retrieve web page. URL may be invalid.";
+        }
     }
 
     // onPostExecute displays the results of the AsyncTask.
     @Override
     protected void onPostExecute(final String result) {
-	// System.out.println(result);
+        // System.out.println(result);
     }
 
     public static boolean isNetworkAvailable(final Context c) {
-	boolean rep;
+        boolean rep;
 
-	ConnectivityManager cm = (ConnectivityManager) c
-		.getSystemService(Context.CONNECTIVITY_SERVICE);
+        ConnectivityManager cm = (ConnectivityManager) c
+                .getSystemService(Context.CONNECTIVITY_SERVICE);
 
-	NetworkInfo networkInfo = cm.getActiveNetworkInfo();
+        NetworkInfo networkInfo = cm.getActiveNetworkInfo();
 
-	if (networkInfo != null && networkInfo.isConnected()) {
-	    rep = true;
+        if (networkInfo != null && networkInfo.isConnected()) {
+            rep = true;
 
-	} else {
-	    rep = false;
-	}
+        } else {
+            rep = false;
+        }
 
-	System.out.println("isNetworkAvailable = " + rep);
-	return rep;
+        System.out.println("isNetworkAvailable = " + rep);
+        return rep;
     }
 
     // Given a URL, establishes an HttpUrlConnection and retrieves
     // the web page content as a InputStream, which it returns as
     // a string.
-    public static String downloadUrl(final String myurl, final String methode, final String id, final String mdp) throws IOException {
-	InputStream is = null;
+    public static String downloadUrl(final String myurl, final String methode,
+            final String id, final String mdp) throws IOException {
+        InputStream is = null;
 
-	try {
-	    URL url = new URL(myurl);
-	    HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+        try {
+            URL url = new URL(myurl);
+            HttpURLConnection conn = (HttpURLConnection) url.openConnection();
 
-	    // Temps de lecture max en milliseconde
-	    conn.setReadTimeout(10000);
+            // Temps de lecture max en milliseconde
 
-	    // Temps de connexion max en milliseconde
-	    conn.setConnectTimeout(15000);
+            conn.setReadTimeout(timeOut);
 
-	    // La methode de la requete HTTP
-	    if (methode == "POST"){
-	    	conn.setRequestMethod("POST");
-	    	conn.setRequestProperty("id", id);
-	    	conn.setRequestProperty("mdp", mdp);
-	    	
-	    }else{
-	    	conn.setRequestMethod("GET");
-	    }
-	    
+            // Temps de connexion max en milliseconde
+            conn.setConnectTimeout(connectTimeOut);
 
-	    conn.setDoInput(true);
-	    // Starts the query
-	    conn.connect();
-	    int response = conn.getResponseCode();
+            // La methode de la requete HTTP
+            if (methode == "POST") {
+                conn.setRequestMethod("POST");
+                conn.setRequestProperty("id", id);
+                conn.setRequestProperty("mdp", mdp);
 
-	    System.out.println("The response is: " + response);
-	    is = conn.getInputStream();
+            } else {
+                conn.setRequestMethod("GET");
+            }
 
-	    // Convert the InputStream into a string
-	    String contentAsString = toString(is);
-	    is.close();
-	    return contentAsString;
+            conn.setDoInput(true);
+            // Starts the query
+            conn.connect();
+            int response = conn.getResponseCode();
 
-	    // Makes sure that the InputStream is closed after the app is
-	    // finished using it.
-	} finally {
-	    if (is != null) {
-		is.close();
-	    }
-	}
+            System.out.println("The response is: " + response);
+            is = conn.getInputStream();
+
+            // Convert the InputStream into a string
+            String contentAsString = toString(is);
+            is.close();
+            return contentAsString;
+
+            // Makes sure that the InputStream is closed after the app is
+            // finished using it.
+        } finally {
+            if (is != null) {
+                is.close();
+            }
+        }
     }
 
-    public String getId() {
-		return id;
-	}
-	public void setId(String id) {
-		this.id = id;
-	}
-	public String getMdp() {
-		return mdp;
-	}
-	public void setMdp(String mdp) {
-		this.mdp = mdp;
-	}
-	// Reads an InputStream and converts it to a String.
-    private static String toString(final InputStream stream)
-	    throws IOException, UnsupportedEncodingException {
-	BufferedReader r = new BufferedReader(new InputStreamReader(stream));
-	StringBuilder total = new StringBuilder();
-	String line;
-	while ((line = r.readLine()) != null) {
-	    total.append(line);
-	}
-	return total.toString();
+    public final String getId() {
+        return this.id;
     }
-	public String getMethode() {
-		return methode;
-	}
-	public void setMethode(String methode) {
-		this.methode = methode;
-	}
 
+    public final void setId(final String pId) {
+        this.id = pId;
+    }
+
+    public final String getMdp() {
+        return this.mdp;
+    }
+
+    public final void setMdp(final String pMdp) {
+        this.mdp = pMdp;
+    }
+
+    // Reads an InputStream and converts it to a String.
+    private static String toString(final InputStream stream) throws IOException {
+        BufferedReader r = new BufferedReader(new InputStreamReader(stream));
+        StringBuilder total = new StringBuilder();
+        String line;
+        while ((line = r.readLine()) != null) {
+            total.append(line);
+        }
+        return total.toString();
+    }
+
+    public final String getMethode() {
+        return this.methode;
+    }
+
+    public final void setMethode(final String pMethode) {
+        this.methode = pMethode;
+    }
 }
