@@ -14,103 +14,104 @@ import esarc.bts.ticketscan.model.ticket.Ticket;
 
 public class Event {
 
-    private String libelle;
+    private String       libelle;
     private List<Ticket> listTicket;
-    private DateEvent dateEvent;
+    private DateEvent    dateEvent;
 
     public Event() {
-	super();
+        super();
     }
 
-    public String getLibelle() {
-	return this.libelle;
+    public final String getLibelle() {
+        return this.libelle;
     }
 
-    public void setLibelle(final String libelle) {
-	if (libelle != null) {
-	    this.libelle = libelle;
-	} else {
-	    this.libelle = null;
-	}
+    public final void setLibelle(final String pLibelle) {
+        if (this.libelle != null) {
+            this.libelle = pLibelle;
+        } else {
+            this.libelle = null;
+        }
 
     }
 
-    public DateEvent getDateEvent() {
-	return this.dateEvent;
+    public final DateEvent getDateEvent() {
+        return this.dateEvent;
     }
 
-    public void setDateEvent(final DateEvent dateEvent) {
-	if (dateEvent != null) {
-	    this.dateEvent = dateEvent;
-	} else {
-	    this.dateEvent = null;
-	}
+    public final void setDateEvent(final DateEvent pDateEvent) {
+        if (this.dateEvent != null) {
+
+            this.dateEvent = pDateEvent;
+        } else {
+            this.dateEvent = null;
+        }
     }
 
-    public List<Ticket> getListTicket() {
-	return this.listTicket;
+    public final List<Ticket> getListTicket() {
+        return this.listTicket;
     }
 
-    public void setListTicket(final List<Ticket> listTicket) {
-	if (listTicket != null) {
-	    this.listTicket = listTicket;
-	} else {
-	    this.listTicket = null;
-	}
-    }
-	
-	public String listTicketToJson(){
-		String sortie = "[";
-		String separateur = "";
-		for (final Ticket ticket: this.listTicket) {
-			sortie += separateur;
-			Client client = ticket.getClient();
-			sortie += "{\"client\":";
-			sortie += "{\"nom\":" + client.getNom() + ",";
-			sortie += "\"prenom\":" + client.getPrenom() + "},";
-			sortie += "\"code\":" + ticket.getCode() + ",";
-			sortie += "\"valide\":" + ticket.getValide() + "}";
-			separateur = ",";
-		}
-		sortie += "]";
-		return sortie;
+    public final void setListTicket(final List<Ticket> pListTicket) {
+        if (this.listTicket != null) {
+            this.listTicket = pListTicket;
+        } else {
+            this.listTicket = null;
+        }
     }
 
-    public void addTicket(final Ticket ticket) {
-	this.listTicket.add(ticket);
+    public final String listTicketToJson() {
+        String sortie = "[";
+        String separateur = "";
+        for (final Ticket ticket : this.listTicket) {
+            sortie += separateur;
+            Client client = ticket.getClient();
+            sortie += "{\"client\":";
+            sortie += "{\"nom\":" + client.getNom() + ",";
+            sortie += "\"prenom\":" + client.getPrenom() + "},";
+            sortie += "\"code\":" + ticket.getCode() + ",";
+            sortie += "\"valide\":" + ticket.getValide() + "}";
+            separateur = ",";
+        }
+        sortie += "]";
+        return sortie;
     }
 
-    public void removeTicket(final Ticket ticket) {
-	this.listTicket.remove(ticket);
+    public final void addTicket(final Ticket ticket) {
+        this.listTicket.add(ticket);
+    }
+
+    public final void removeTicket(final Ticket ticket) {
+        this.listTicket.remove(ticket);
     }
 
     public static Event loadJson(final String json) throws JSONException,
-	    ParseException {
-	JSONObject jsonT = new JSONObject(json);
-	Event event = new Event();
+            ParseException {
+        JSONObject jsonT = new JSONObject(json);
+        Event event = new Event();
 
-	event.setLibelle(jsonT.getString("libelle"));
-	event.setDateEvent(DateEvent.stringToDate(jsonT.getString("date")));
-	event.setListTicket(Ticket.ticketListFromJSON(jsonT
-		.getString("listeDesTickets")));
+        event.setLibelle(jsonT.getString("libelle"));
+        event.setDateEvent(DateEvent.stringToDate(jsonT.getString("date")));
+        event.setListTicket(Ticket.ticketListFromJSON(jsonT
+                .getString("listeDesTickets")));
 
-	return event;
+        return event;
 
     }
 
     public static List<Event> eventListFromJSON(final String json)
-	    throws JSONException, ParseException {
+            throws JSONException, ParseException {
 
-	List<Event> list = new ArrayList<Event>();
+        List<Event> list = new ArrayList<Event>();
 
-	JSONArray jsonArray = new JSONArray(json);
+        JSONArray jsonArray = new JSONArray(json);
 
-	for (int i = 0; i < jsonArray.length(); i++) {
-	    JSONObject eventJSON = jsonArray.getJSONObject(i);
-	    Event event = Event.loadJson(eventJSON.toString());
-	    list.add(event);
-	}
+        for (int i = 0; i < jsonArray.length(); i++) {
+            JSONObject eventJSON = jsonArray.getJSONObject(i);
+            Event event = Event.loadJson(eventJSON.toString());
+            list.add(event);
+        }
 
-	return list;
+        return list;
     }
 }
