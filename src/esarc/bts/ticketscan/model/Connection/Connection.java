@@ -23,8 +23,8 @@ import android.os.AsyncTask;
 // displayed in the UI by the AsyncTask's onPostExecute method.
 public class Connection extends AsyncTask<String, Void, String> {
 
-    private static final int connectTimeOut = 15000;
-    private static final int timeOut        = 10000;
+    private static final int CONNECTTIMEOUT = 15000;
+    private static final int TIMEOUT        = 10000;
     private String           id;
     private String           mdp;
     private String           methode;
@@ -91,10 +91,10 @@ public class Connection extends AsyncTask<String, Void, String> {
 
             // Temps de lecture max en milliseconde
 
-            conn.setReadTimeout(timeOut);
+            conn.setReadTimeout(TIMEOUT);
 
             // Temps de connexion max en milliseconde
-            conn.setConnectTimeout(connectTimeOut);
+            conn.setConnectTimeout(CONNECTTIMEOUT);
 
             // La methode de la requete HTTP
             if (methode == "POST") {

@@ -18,7 +18,7 @@ public class TicketAdapter extends ArrayAdapter<Ticket> {
     }
 
     @Override
-    public View getView(final int position, final View convertView,
+    public final View getView(final int position, final View convertView,
             final ViewGroup parent) {
         View ligne = convertView;
 
