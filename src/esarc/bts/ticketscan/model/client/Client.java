@@ -7,31 +7,31 @@ public class Client {
 	private String nom;
 	private String prenom;
 
-	public Client (String nom, String prenom){
+	public Client(final String pNom, final String pPrenom) {
 		super();
-		this.setNom(nom);
-		this.setPrenom(prenom);
-		}
+		this.setNom(pNom);
+		this.setPrenom(pPrenom);
+	}
 
-	public String getPrenom() {
+	public final String getPrenom() {
 		return prenom;
 	}
 
-	public void setPrenom(String prenom) {
-		this.prenom = prenom;
+	public final void setPrenom(final String pPrenom) {
+		this.prenom = pPrenom;
 	}
 
-	public String getNom() {
+	public final String getNom() {
 		return nom;
 	}
 
-	public void setNom(String nom) {
-		this.nom = nom;
+	public final void setNom(final String pNom) {
+		this.nom = pNom;
 	}
 
-	public static Client loadJson(String json) throws JSONException {
+	public static Client loadJson(final String json) throws JSONException {
 		JSONObject jsonT = new JSONObject(json);
-		return new Client(jsonT.getString("nom"),jsonT.getString("prenom"));
+		return new Client(jsonT.getString("nom"), jsonT.getString("prenom"));
 	}
-	
+
 }
