@@ -20,6 +20,7 @@ public class Event {
 
     public Event() {
         super();
+        this.listTicket = new ArrayList<Ticket>();
     }
 
     public final String getLibelle() {
@@ -112,5 +113,57 @@ public class Event {
         }
 
         return list;
+    }
+
+    @Override
+    public final int hashCode() {
+        final int prime = 31;
+        int result = 1;
+        result = prime * result;
+        if (dateEvent == null) {
+            result += 0;
+        } else {
+            result += dateEvent.hashCode();
+        }
+        if (libelle == null) {
+            result += 0;
+        } else {
+            result += libelle.hashCode();
+        }
+        if (listTicket == null) {
+            result += 0;
+        } else {
+            result += listTicket.hashCode();
+        }
+        return result;
+    }
+
+    @Override
+    public final boolean equals(final Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        Event other = (Event) obj;
+        if (dateEvent == null) {
+            if (other.dateEvent != null) {
+                return false;
+            }
+        } else if (!dateEvent.equals(other.dateEvent)) {
+            return false;
+        }
+        if (libelle == null) {
+            if (other.libelle != null) {
+                return false;
+            }
+        } else if (!libelle.equals(other.libelle)) {
+            return false;
+        }
+        return true;
     }
 }
