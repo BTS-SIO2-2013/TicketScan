@@ -11,11 +11,13 @@ import org.json.JSONObject;
 import esarc.bts.ticketscan.model.event.Event;
 
 public class Salle {
+
     private String      nom;
     private List<Event> listeEvent;
 
     public Salle() {
         super();
+        this.listeEvent = new ArrayList<Event>();
     }
 
     public final String getNom() {
@@ -61,8 +63,8 @@ public class Salle {
         String separateur = "";
         for (final Event event : this.listeEvent) {
             sortie += separateur;
-            sortie += "{\"libelle\":" + event.getLibelle() + ",";
-            sortie += "\"date\": \"" + event.getDateEvent().toString() + "\",";
+            sortie += "{\"libelle\":\"" + event.getLibelle() + "\",";
+            sortie += "\"date\":\"" + event.getDateEvent().toString() + "\",";
             sortie += "\"listeDesTickets\":" + event.listTicketToJson() + "}";
             separateur = ",";
         }
@@ -83,5 +85,46 @@ public class Salle {
         }
 
         return list;
+    }
+
+    @Override
+    public final int hashCode() {
+        final int prime = 31;
+        int result = 1;
+        result = prime * result;
+        if (this.listeEvent == null) {
+            result += 0;
+        } else {
+            result += this.listeEvent.hashCode();
+        }
+        result = prime * result;
+        if (this.nom == null) {
+            result += 0;
+        } else {
+            result += this.nom.hashCode();
+        }
+        return result;
+    }
+
+    @Override
+    public final boolean equals(final Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        Salle other = (Salle) obj;
+        if (this.nom == null) {
+            if (other.nom != null) {
+                return false;
+            }
+        } else if (!this.nom.equals(other.nom)) {
+            return false;
+        }
+        return true;
     }
 }

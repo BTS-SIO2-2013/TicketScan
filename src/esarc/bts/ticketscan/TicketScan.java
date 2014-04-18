@@ -94,7 +94,7 @@ public class TicketScan extends ListActivity {
             v.setBackgroundColor(android.graphics.Color.TRANSPARENT);
             ticket.setValide(false);
         } else {
-            v.setBackgroundColor(android.graphics.Color.BLUE);
+            v.setBackgroundColor(android.graphics.Color.GREEN);
             ticket.setValide(true);
         }
     }
