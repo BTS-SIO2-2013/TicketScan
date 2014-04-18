@@ -130,11 +130,6 @@ public class Event {
         } else {
             result += libelle.hashCode();
         }
-        if (listTicket == null) {
-            result += 0;
-        } else {
-            result += listTicket.hashCode();
-        }
         return result;
     }
 
