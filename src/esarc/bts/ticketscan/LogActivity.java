@@ -104,7 +104,7 @@ public class LogActivity extends Activity {
         progressBar.setVisibility(View.VISIBLE);
 
         // TODO envoyez les données par URL
-        String url = "http://10.0.2.2/BilletMaster/mobile/connection.php";
+        String url = "http://172.16.1.39/BilletMaster/mobile/connection.php";
         String json = this.connexion(url, "POST", user.getLogin(),
                 user.getMdp());
         return json;

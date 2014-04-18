@@ -11,6 +11,7 @@ import android.content.Context;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.AsyncTask;
+import android.util.Log;
 
 //Uses AsyncTask to create a task away from the main UI thread. This
 // task takes a
@@ -96,12 +97,19 @@ public class Connection extends AsyncTask<String, Void, String> {
             // Temps de connexion max en milliseconde
             conn.setConnectTimeout(CONNECTTIMEOUT);
 
-            // La methode de la requete HTTP
-            if (methode == "POST") {
-                conn.setRequestMethod("POST");
-                conn.setRequestProperty("id", id);
-                conn.setRequestProperty("mdp", mdp);
+            System.out.println("mdp : " + mdp);
+            System.out.println("log : " + id);
 
+            // La methode de la requete HTTP
+            if (methode.equals("POST")) {
+                Log.e("test", mdp);
+                conn.setDoOutput(true);
+                conn.setRequestMethod("POST");
+                conn.setRequestProperty("id", "text/html");
+                conn.addRequestProperty("id", id);
+                // conn.setRequestProperty("id", id);
+                conn.setRequestProperty("mdp", "text/html");
+                conn.addRequestProperty("mdp", mdp);
             } else {
                 conn.setRequestMethod("GET");
             }
