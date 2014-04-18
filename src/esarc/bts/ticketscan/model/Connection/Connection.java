@@ -11,7 +11,9 @@ import org.apache.http.HttpResponse;
 import org.apache.http.NameValuePair;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.entity.UrlEncodedFormEntity;
+import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpPost;
+import org.apache.http.client.methods.HttpUriRequest;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.message.BasicNameValuePair;
 
@@ -94,14 +96,20 @@ public class Connection extends AsyncTask<String, Void, String> {
         try {
 
             HttpClient client = new DefaultHttpClient();
-            HttpPost post = new HttpPost(myurl);
+            HttpUriRequest request;
+            if (methode.equals(HttpPost.METHOD_NAME)) {
+                request = new HttpPost(myurl);
 
-            List<NameValuePair> pairs = new ArrayList<NameValuePair>();
-            pairs.add(new BasicNameValuePair("id", id));
-            pairs.add(new BasicNameValuePair("mdp", mdp));
-            post.setEntity(new UrlEncodedFormEntity(pairs));
+                List<NameValuePair> pairs = new ArrayList<NameValuePair>();
+                pairs.add(new BasicNameValuePair("id", id));
+                pairs.add(new BasicNameValuePair("mdp", mdp));
+                ((HttpPost) request).setEntity(new UrlEncodedFormEntity(pairs));
 
-            HttpResponse response = client.execute(post);
+            } else {
+                request = new HttpGet(myurl);
+            }
+
+            HttpResponse response = client.execute(request);
 
             is = response.getEntity().getContent();
             // Convert the InputStream into a string
