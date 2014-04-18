@@ -4,8 +4,16 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.net.HttpURLConnection;
-import java.net.URL;
+import java.util.ArrayList;
+import java.util.List;
+
+import org.apache.http.HttpResponse;
+import org.apache.http.NameValuePair;
+import org.apache.http.client.HttpClient;
+import org.apache.http.client.entity.UrlEncodedFormEntity;
+import org.apache.http.client.methods.HttpPost;
+import org.apache.http.impl.client.DefaultHttpClient;
+import org.apache.http.message.BasicNameValuePair;
 
 import android.content.Context;
 import android.net.ConnectivityManager;
@@ -23,16 +31,14 @@ import android.os.AsyncTask;
 // displayed in the UI by the AsyncTask's onPostExecute method.
 public class Connection extends AsyncTask<String, Void, String> {
 
-    private static final int CONNECTTIMEOUT = 15000;
-    private static final int TIMEOUT        = 10000;
-    private String           id;
-    private String           mdp;
-    private String           methode;
+    private String id;
+    private String mdp;
+    private String methode;
 
     public Connection(final String pId, final String pMdp, final String pMethode) {
         this.id = pId;
         this.mdp = pMdp;
-        this.setMethode(this.methode);
+        this.setMethode(pMethode);
     }
 
     public Connection() {
@@ -86,37 +92,21 @@ public class Connection extends AsyncTask<String, Void, String> {
         InputStream is = null;
 
         try {
-            URL url = new URL(myurl);
-            HttpURLConnection conn = (HttpURLConnection) url.openConnection();
 
-            // Temps de lecture max en milliseconde
+            HttpClient client = new DefaultHttpClient();
+            HttpPost post = new HttpPost(myurl);
 
-            conn.setReadTimeout(TIMEOUT);
+            List<NameValuePair> pairs = new ArrayList<NameValuePair>();
+            pairs.add(new BasicNameValuePair("id", id));
+            pairs.add(new BasicNameValuePair("mdp", mdp));
+            post.setEntity(new UrlEncodedFormEntity(pairs));
 
-            // Temps de connexion max en milliseconde
-            conn.setConnectTimeout(CONNECTTIMEOUT);
+            HttpResponse response = client.execute(post);
 
-            // La methode de la requete HTTP
-            if (methode == "POST") {
-                conn.setRequestMethod("POST");
-                conn.setRequestProperty("id", id);
-                conn.setRequestProperty("mdp", mdp);
-
-            } else {
-                conn.setRequestMethod("GET");
-            }
-
-            conn.setDoInput(true);
-            // Starts the query
-            conn.connect();
-            int response = conn.getResponseCode();
-
-            System.out.println("The response is: " + response);
-            is = conn.getInputStream();
-
+            is = response.getEntity().getContent();
             // Convert the InputStream into a string
             String contentAsString = toString(is);
-            is.close();
+
             return contentAsString;
 
             // Makes sure that the InputStream is closed after the app is
