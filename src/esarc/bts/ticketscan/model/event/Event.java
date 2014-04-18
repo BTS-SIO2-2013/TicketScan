@@ -27,7 +27,7 @@ public class Event {
     }
 
     public final void setLibelle(final String pLibelle) {
-        if (this.libelle != null) {
+        if (pLibelle != null) {
             this.libelle = pLibelle;
         } else {
             this.libelle = null;
@@ -40,8 +40,7 @@ public class Event {
     }
 
     public final void setDateEvent(final DateEvent pDateEvent) {
-        if (this.dateEvent != null) {
-
+        if (pDateEvent != null) {
             this.dateEvent = pDateEvent;
         } else {
             this.dateEvent = null;
@@ -53,7 +52,7 @@ public class Event {
     }
 
     public final void setListTicket(final List<Ticket> pListTicket) {
-        if (this.listTicket != null) {
+        if (pListTicket != null) {
             this.listTicket = pListTicket;
         } else {
             this.listTicket = null;
