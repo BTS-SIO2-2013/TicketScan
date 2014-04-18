@@ -20,6 +20,7 @@ public class Event {
 
     public Event() {
         super();
+        this.listTicket = new ArrayList<Ticket>();
     }
 
     public final String getLibelle() {
